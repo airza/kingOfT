@@ -9,7 +9,7 @@ public class Monster {
 	private String name;
 	public Boolean inTokyo;
 	//private ArrayList<cards> cards;
-	
+	//kokokokokok
 	
 	public void takeDamage (int damage) {
 		health -= damage;
