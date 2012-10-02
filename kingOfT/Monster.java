@@ -11,6 +11,9 @@ public class Monster {
 	public void takeDamage (int damage) {
 		health -= damage;
 	}
+	public int getHealth(){
+		return health;
+	}
 	public void gainHealth (int heal) {
 		health  = Math.max(10, health+heal);
 	}
