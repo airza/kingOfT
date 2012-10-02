@@ -9,7 +9,7 @@ public class MainLoop {
 		final int PLAYER_NUM = 4;
 		final String[] NAMES = {"A","B","C","D"};
 		Game game = new Game(PLAYER_NUM,NAMES);
-		
+		game.chooseDice(6);
 	}
 
 }

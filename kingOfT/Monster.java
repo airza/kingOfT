@@ -7,6 +7,7 @@ public class Monster {
 	private int vp;
 	private int energy;
 	private String name;
+	public Boolean inTokyo;
 	//private ArrayList<cards> cards;
 	
 	

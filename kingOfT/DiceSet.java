@@ -12,7 +12,7 @@ public class DiceSet {
 	
 	/*This block contains the info to render the dice into text -
 	we'll need to replace it with images in the final version*/
-	private final static HashMap diceRenders = new HashMap();
+	private final static HashMap<Integer, String> diceRenders = new HashMap<Integer, String>();
 	static {
 		diceRenders.put(0,"E");
 		diceRenders.put(1,"1");
@@ -22,7 +22,9 @@ public class DiceSet {
 		diceRenders.put(5,"H");
 		
 	}
-	
+	public void setState (int[] states) {
+		diceState = states;
+	}
 	public String stateRender() {
 		//This should be handled by the view later?
 		StringBuilder str = new StringBuilder();
@@ -49,6 +51,17 @@ public class DiceSet {
 			if (rolls[i] == true){
 				diceState[i] = diceRoller.nextInt(NUMBER_OF_SIDES);
 			}
+		}
+		rollsLeft--;
+	}
+	public void rollDice() {
+		/*this should probably have more explosions if
+		someone tries to roll while empty*/
+		if (rollsLeft == 0) {
+			return;
+		}
+		for(int i = 0; i< setSize; i++){
+				diceState[i] = diceRoller.nextInt(NUMBER_OF_SIDES);
 		}
 		rollsLeft--;
 	}
