@@ -9,11 +9,19 @@ public Monster currTurn;
 public void cleanUp() {
 	for(Monster m: monsters){
 		if (m.health<=0){
-		monsters.remove(m);
+			lose(m);
 		}
-		if (m.victoryPoints >= 20){
-		
+		if (m.vp >= 20){
+			win(m);
 		}
 	}
+}
+private void win(Monster m) {
+	// TODO Auto-generated method stub
+	
+}
+private void lose(Monster m) {
+	// TODO Auto-generated method stub
+	
 }
 }
