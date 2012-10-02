@@ -2,11 +2,13 @@ package kingOfT;
 
 public class Monster {
 
+	
 	private int health;
 	private int vp;
 	private int energy;
 	private String name;
 	//private ArrayList<cards> cards;
+	
 	
 	public void takeDamage (int damage) {
 		health -= damage;
@@ -29,5 +31,8 @@ public class Monster {
 		energy = 0;
 		health = 10;
 		vp = 0;
+	}
+	public boolean isDead() {
+		return health<=0;
 	}
 }

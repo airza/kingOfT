@@ -1,6 +1,6 @@
 package kingOfT;
 
-public class Window {
+public class MainLoop {
 
 	/**
 	 * @param args

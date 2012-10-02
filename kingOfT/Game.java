@@ -3,10 +3,8 @@ package kingOfT;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 public class Game {
 public ArrayList<Monster> monsters;
-public Monster inTokyo;
 public Monster curMon;
 public void cleanUp() {
 	for(Monster m: monsters){
@@ -21,7 +19,6 @@ public void cleanUp() {
 	curMon = monsters.get(nextMon);
 }
 private void win(Monster m) {
-	end();
 	
 }
 private void lose(Monster m) {
@@ -35,8 +32,7 @@ private void lose(Monster m) {
 	}
 }
 public void takeTurn() {
-	diceSet dice = new diceSet(3);
-	while dice.
+	DiceSet dice = new DiceSet(3,6);
 }
 public Game (int num_of_monsters, String[] names) {
 	inTokyo = null;
