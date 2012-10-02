@@ -35,7 +35,7 @@ private void lose(Monster m) {
 	}
 }
 public void takeTurn() {
-	dice = new diceSet;
+	diceSet dice = new diceSet(3);
 	while dice.
 }
 public Game (int num_of_monsters, String[] names) {
