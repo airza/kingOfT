@@ -1,6 +1,6 @@
 package kingOfT;
 
-public class Monster {
+public class Monster implements Cloneable{
 
 	
 	private int health;
@@ -27,6 +27,10 @@ public class Monster {
 	public void gainEnergy (int en) { 
 		energy += en;
 	}
+	
+	public String getName() {
+		return name;
+	}
 	public Monster(String itsName) {
 		name = itsName;
 		energy = 0;
@@ -35,5 +39,9 @@ public class Monster {
 	}
 	public boolean isDead() {
 		return health<=0;
+	}
+	public void switchPosition(Monster monster) {
+		
+		
 	}
 }
