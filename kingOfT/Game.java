@@ -7,9 +7,10 @@ import java.util.Scanner;
 public class Game {
 private final int NUMBER_OF_REROLLS = 3;
 private final int NUMBER_OF_DICE = 6;
-private tokyoArea board;
+private TokyoArea board;
+
 public void cleanUp() {
-	for(Monster m: monsters){
+	for(Monster m: board.getMonsters()){
 		if (m.getHealth()<=0){
 			lose(m);
 		}
@@ -17,8 +18,7 @@ public void cleanUp() {
 			win(m);
 		}
 	}
-	int nextMon = (monsters.indexOf(curMon) + 1) % (monsters.size() + 1);
-	curMon = monsters.get(nextMon);
+	board.advanceMonster();
 }
 
 
@@ -26,7 +26,7 @@ private void win(Monster m) {
 	
 }
 private void lose(Monster m) {
-	monsters.remove(m);
+	board.removeMonster(m);
 }
 public void takeTurn() {
 	DiceSet dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
@@ -37,7 +37,7 @@ public void takeTurn() {
 		dice.rollDice(rerolls);
 		draw(dice.stateRender());
 	}
-		handleDice(curMon,dice);
+		handleDice(board.getCurMon(),dice);
 		cleanUp();
 }
 private void draw(String string) {
@@ -45,10 +45,10 @@ private void draw(String string) {
 }
 
 private void drawTokyo() {
-	for (Monster m : getMonstersInTokyo()){
+	for (Monster m : board.getMonstersInTokyo()){
 		System.out.printf("%s is in tokyo!\n",m.getName());
 	}
-	for (Monster m: getMonstersNotInTokyo()){
+	for (Monster m: board.getMonstersNotInTokyo()){
 		System.out.printf("%s is not in tokyo!\n",m.getName());
 	}
 }
@@ -56,6 +56,7 @@ private void handleDice(Monster monster, DiceSet die) {
 	int energy = die.countState(0);
 	int claws = die.countState(4);
 	int hearts = die.countState(5);
+	
 	for (int d = 1; d == 3; d++){
 		int dCount = die.countState(d);
 		if (dCount  >= 3) {
@@ -63,18 +64,52 @@ private void handleDice(Monster monster, DiceSet die) {
 			
 		}
 	}
+
 	monster.gainEnergy(energy);
-	if (!monster.inTokyo) {
+	
+	boolean inTokyo = board.inTokyo(monster);
+
+	if (!inTokyo){
 		monster.gainHealth(hearts);
 	}
 	
-	if (!monster.inTokyo && claws > 0) {
-		for (Monster hitMon : getMonstersInTokyo()){
+	if (inTokyo && claws > 0) {
+		for (Monster hitMon : board.getMonstersNotInTokyo()){
 			hitMon.gainHealth(-1*claws);
 			
 		}
 	}
+	
+	if (!inTokyo && claws > 0) {
+		for (Monster hitMon : board.getMonstersInTokyo()){
+			hitMon.gainHealth(-1*claws);
+			boolean hitMonLeft = PromptToLeave(hitMon);
+			if (hitMonLeft) {
+				board.RemoveFromTokyo(hitMon);
+			}
+		}
+		if(board.tokyoHasSpace()){
+			board.AddToTokyo(monster);
+		}
+	}
+	
 }
+
+private boolean PromptToLeave(Monster hitMon) {
+	System.out.println(hitMon.getName() + ": Do you want to leave Tokyo? Y/N");
+	Scanner scansworth = new Scanner(System.in);
+	while (!scansworth.hasNext("[YN]")){
+		String next = scansworth.next();
+		if(!(next == "Y" || next == "N")) {
+            System.out.println("Invalid input! Enter a valid response!");
+        } else {
+        	return next == "Y";
+        }
+        	
+	}
+	return false;
+}
+
 
 public Boolean[] chooseDice(int diceNum){
 	Boolean[] responses = new Boolean[diceNum];
@@ -99,12 +134,11 @@ public Boolean[] chooseDice(int diceNum){
 	return responses;
 }
 public Game (int num_of_monsters, String[] names) {
-	monsters = new ArrayList<Monster>();
+	ArrayList<Monster> monsters = new ArrayList<Monster>();
 	for (int i= 0; i <num_of_monsters; i++){
 		Monster mon = new Monster(names[i]);
 		monsters.add(mon);
 	}
-	Collections.shuffle(monsters);
-	curMon = monsters.get(0);
+	board = new TokyoArea(monsters);
 }
 }
