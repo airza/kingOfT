@@ -40,8 +40,4 @@ public class Monster implements Cloneable{
 	public boolean isDead() {
 		return health<=0;
 	}
-	public void switchPosition(Monster monster) {
-		
-		
-	}
 }
