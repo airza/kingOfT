@@ -13,3 +13,6 @@ public class Pictures {
 	InputStream dice01 = getClass().getResourceAsStream("dice01.jpg");
 	}
 }
+
+
+//test
