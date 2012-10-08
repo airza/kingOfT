@@ -5,10 +5,9 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Game {
-public ArrayList<Monster> monsters;
-public Monster curMon;
 private final int NUMBER_OF_REROLLS = 3;
 private final int NUMBER_OF_DICE = 6;
+private tokyoArea board;
 public void cleanUp() {
 	for(Monster m: monsters){
 		if (m.getHealth()<=0){
@@ -21,24 +20,7 @@ public void cleanUp() {
 	int nextMon = (monsters.indexOf(curMon) + 1) % (monsters.size() + 1);
 	curMon = monsters.get(nextMon);
 }
-public ArrayList<Monster> getMonstersInTokyo(){
-	ArrayList<Monster> monsInTokyo = new ArrayList<Monster>();
-	for (Monster m: monsters){
-		if (m.inTokyo) {
-			monsInTokyo.add(m);
-		}
-	}
-	return monsInTokyo;
-}
-public ArrayList<Monster> getMonstersNotInTokyo(){
-	ArrayList<Monster> monsOutTokyo = new ArrayList<Monster>();
-	for (Monster m: monsters){
-		if (!m.inTokyo) {
-			monsOutTokyo.add(m);
-		}
-	}
-	return monsOutTokyo;
-}
+
 
 private void win(Monster m) {
 	
