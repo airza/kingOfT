@@ -39,4 +39,12 @@ public class Monster implements Cloneable{
 	public boolean isDead() {
 		return health<=0;
 	}
+	public String stateRender() {
+		StringBuilder str = new StringBuilder();
+		str.append("Name: "+name+"\n");
+		str.append("HP: "+name+"\n");
+		str.append("Energy: "+energy+"\n");
+		str.append("VP: "+vp+"\n");
+		return str.toString();
+	}
 }

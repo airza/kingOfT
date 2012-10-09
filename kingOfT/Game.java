@@ -1,7 +1,6 @@
 package kingOfT;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Game {
@@ -17,18 +16,24 @@ public void cleanUp() {
 		if (m.getHealth() >= 20){
 			win(m);
 		}
+		
 	}
-	board.advanceMonster();
+	if (board.getMonsters().size() == 0) {
+		win(board.getMonsters().get(0));
+	}
+	board.advanceMonsterTurn();
 }
 
 
 private void win(Monster m) {
-	
+	System.out.println(m.getName() + " WINS!");
+	System.exit(0);
 }
 private void lose(Monster m) {
 	board.removeMonster(m);
 }
 public void takeTurn() {
+	System.out.println(board.getCurMon().getName() + "'S TURN");
 	DiceSet dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
 	dice.rollDice();
 	System.out.println(dice.stateRender());
@@ -37,21 +42,17 @@ public void takeTurn() {
 		dice.rollDice(rerolls);
 		draw(dice.stateRender());
 	}
-		handleDice(board.getCurMon(),dice);
-		cleanUp();
+	handleDice(board.getCurMon(),dice);
+	for (Monster m : board.getMonsters()) {
+		draw(m.stateRender());
+	}
+	draw(board.stateRender());
+	cleanUp();
 }
 private void draw(String string) {
 	System.out.println(string);
 }
 
-private void drawTokyo() {
-	for (Monster m : board.getMonstersInTokyo()){
-		System.out.printf("%s is in tokyo!\n",m.getName());
-	}
-	for (Monster m: board.getMonstersNotInTokyo()){
-		System.out.printf("%s is not in tokyo!\n",m.getName());
-	}
-}
 private void handleDice(Monster monster, DiceSet die) {
 	int energy = die.countState(0);
 	int claws = die.countState(4);
