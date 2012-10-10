@@ -6,7 +6,7 @@ import java.util.Random;
 public class DiceSet {
 	private int rollsLeft;
 	private int[] diceState;
-	private int setSize;
+	private int diceCount;
 	private static final int NUMBER_OF_SIDES = 6;
 	static private Random diceRoller = new Random();
 	
@@ -28,10 +28,28 @@ public class DiceSet {
 	public String stateRender() {
 		//This should be handled by the view later?
 		StringBuilder str = new StringBuilder();
+		str.append("123456\n");
 		for (int i = 0; i<diceState.length; i++) {
-			str.append(diceRenders.get(i));
+			str.append(diceRenders.get(diceState[i]));
 		}
 		return str.toString();
+	}
+	
+	public int countState(int state){
+		int count = 0;
+		for (int d :diceState) {
+			if (d == state){
+				count++;
+			}
+		}
+		return count;
+	}
+	public Boolean[] findState(int state){
+		Boolean[] hasState = new Boolean[diceCount];
+		for (int i = 0; i<state; i++) {
+				hasState[i] = (diceState[i] == state);
+		}
+		return hasState;
 	}
 	public int getRollsLeft() {
 		return rollsLeft;
@@ -47,7 +65,7 @@ public class DiceSet {
 			return;
 		}
 		assert(rolls.length == diceState.length);
-		for(int i = 0; i< setSize; i++){
+		for(int i = 0; i< diceCount; i++){
 			if (rolls[i] == true){
 				diceState[i] = diceRoller.nextInt(NUMBER_OF_SIDES);
 			}
@@ -55,18 +73,15 @@ public class DiceSet {
 		rollsLeft--;
 	}
 	public void rollDice() {
-		/*this should probably have more explosions if
-		someone tries to roll while empty*/
-		if (rollsLeft == 0) {
-			return;
+		Boolean[] rolls = new Boolean[diceCount];
+		for (int i =0 ; i < diceCount;i++){
+			rolls[i] = true;
 		}
-		for(int i = 0; i< setSize; i++){
-				diceState[i] = diceRoller.nextInt(NUMBER_OF_SIDES);
-		}
-		rollsLeft--;
+		rollDice(rolls);
 	}
 	public DiceSet(int n, int s) {
 	rollsLeft = n;
-	setSize = s;
+	diceCount = s;
+	diceState = new int[s];
 	}
 }
