@@ -17,7 +17,7 @@ public class Monster implements Cloneable{
 		return health;
 	}
 	public void gainHealth (int heal) {
-		health  = Math.max(10, health+heal);
+		health  = Math.min(10, health+heal);
 	}
 	
 	public void gainVictory(int points){
@@ -42,9 +42,12 @@ public class Monster implements Cloneable{
 	public String stateRender() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: "+name+"\n");
-		str.append("HP: "+name+"\n");
+		str.append("HP: "+health+"\n");
 		str.append("Energy: "+energy+"\n");
 		str.append("VP: "+vp+"\n");
 		return str.toString();
+	}
+	public int getVP() {
+		return vp;
 	}
 }

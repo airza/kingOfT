@@ -28,6 +28,7 @@ public class DiceSet {
 	public String stateRender() {
 		//This should be handled by the view later?
 		StringBuilder str = new StringBuilder();
+		str.append("123456\n");
 		for (int i = 0; i<diceState.length; i++) {
 			str.append(diceRenders.get(diceState[i]));
 		}
