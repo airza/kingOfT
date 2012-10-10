@@ -1,6 +1,6 @@
 package kingOfT;
 
-public class Monster implements Cloneable{
+public class Monster{
 
 	
 	private int health;
