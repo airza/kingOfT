@@ -20,8 +20,8 @@ public Boolean inTokyo(Monster mon){
 	return !notInTokyo.contains(mon);
 }
 public TokyoArea (ArrayList<Monster> mons) {
-	notInTokyo = mons;
-	monsters = mons;
+	notInTokyo = new ArrayList<Monster>(mons);
+	monsters = new ArrayList<Monster>(mons);
 	Collections.shuffle(monsters);
 	curMon = monsters.get(0);
 }
@@ -34,20 +34,6 @@ public void advanceMonsterTurn() {
 	int curMonIndex = monsters.indexOf(curMon);
 	curMonIndex = (curMonIndex + 1) % (size-1);
 	curMon = monsters.get(curMonIndex);
-}
-public void RemoveFromTokyo (Monster mons) {
-	if (tokyoMon == mons) {
-		notInTokyo.add(mons);
-		if (tokyoBayMon == null) {
-			tokyoMon = null;
-		} else {
-			tokyoMon = tokyoBayMon;
-			tokyoBayMon = null;
-		}
-	} else {
-		notInTokyo.add(mons);
-		tokyoBayMon = null;
-	}
 }
 public ArrayList<Monster> getMonstersInTokyo(){
 	ArrayList<Monster> monsInTokyo = new ArrayList<Monster>();
@@ -72,6 +58,7 @@ public void AddToTokyo(Monster mons) {
 	} else {
 		tokyoMon = mons;
 	}
+	notInTokyo.remove(mons);
 }
 public boolean tokyoHasSpace() {
 	if (monsterCount() > 4) {
@@ -80,19 +67,13 @@ public boolean tokyoHasSpace() {
 		return (tokyoMon == null);
 	}
 }
-public void removeMonster(Monster m) {
-	monsters.remove(m);
-	if (tokyoMon == m){
+public void RemoveFromTokyo(Monster m) {
+	assert(m == tokyoMon || m ==tokyoBayMon);
+	if (m == tokyoMon) {
 		tokyoMon = tokyoBayMon;
-		tokyoBayMon = null;
-	} else if (tokyoBayMon == m) {
-		tokyoBayMon = null;
+		notInTokyo.add(m);
 	} else {
-		notInTokyo.remove(m);
-		if (monsters.size() <= 4) {
-			notInTokyo.add(tokyoBayMon);
-			tokyoBayMon = null;
-		}
+		tokyoBayMon = null;
 	}
 }
 public String stateRender() {
@@ -101,8 +82,30 @@ public String stateRender() {
 			str.append(m.getName()+" is in tokyo!\n");
 		}
 		for (Monster m: getMonstersNotInTokyo()){
-			System.out.printf(m.getName() + "is not in tokyo!\n");
+			System.out.printf(m.getName() + " is not in tokyo!\n");
 		}
 		return str.toString();
+}
+public void removeMonsters(ArrayList<Monster> killed) {
+	for (Monster m : killed){
+		if (m == tokyoMon) {
+			tokyoMon = null;
+		} else if (m == tokyoBayMon) {
+			tokyoBayMon = null;
+		} else {
+			notInTokyo.remove(m);
+		}
+		monsters.remove(m);
+	}
+}
+public void removeMonsters(Monster killed) {
+		if (killed == tokyoMon) {
+			tokyoMon = null;
+		} else if (killed == tokyoBayMon) {
+			tokyoBayMon = null;
+		} else {
+			notInTokyo.remove(killed);
+		}
+		monsters.remove(killed);
 }
 }

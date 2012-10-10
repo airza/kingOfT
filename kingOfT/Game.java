@@ -9,16 +9,18 @@ private final int NUMBER_OF_DICE = 6;
 private TokyoArea board;
 
 public void cleanUp() {
+	ArrayList<Monster> killed = new ArrayList<Monster>();
 	for(Monster m: board.getMonsters()){
 		if (m.getHealth()<=0){
-			lose(m);
+			draw(m.getName() + " was killed!");
+			killed.add(m);
 		}
-		if (m.getHealth() >= 20){
+		if (m.getVP() >= 20){
 			win(m);
 		}
-		
 	}
-	if (board.getMonsters().size() == 0) {
+	board.removeMonsters(killed);
+	if (board.getMonsters().size() == 1) {
 		win(board.getMonsters().get(0));
 	}
 	board.advanceMonsterTurn();
@@ -29,9 +31,13 @@ private void win(Monster m) {
 	System.out.println(m.getName() + " WINS!");
 	System.exit(0);
 }
-private void lose(Monster m) {
-	board.removeMonster(m);
-}
+private Boolean someRerolled(Boolean[] choices) {
+	Boolean someTrue = false;
+	for (Boolean c :choices) {
+		someTrue = someTrue || c;
+	}
+	return someTrue;
+} 
 public void takeTurn() {
 	System.out.println(board.getCurMon().getName() + "'S TURN");
 	DiceSet dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
@@ -39,15 +45,19 @@ public void takeTurn() {
 	System.out.println(dice.stateRender());
 	while(dice.getRollsLeft()>0) {
 		Boolean[] rerolls = chooseDice(NUMBER_OF_DICE);
+		if (!someRerolled(rerolls)){
+			break;
+		}
 		dice.rollDice(rerolls);
 		draw(dice.stateRender());
 	}
 	handleDice(board.getCurMon(),dice);
+	cleanUp();
 	for (Monster m : board.getMonsters()) {
 		draw(m.stateRender());
 	}
 	draw(board.stateRender());
-	cleanUp();
+
 }
 private void draw(String string) {
 	System.out.println(string);
@@ -58,7 +68,8 @@ private void handleDice(Monster monster, DiceSet die) {
 	int claws = die.countState(4);
 	int hearts = die.countState(5);
 	
-	for (int d = 1; d == 3; d++){
+	//Add points for numbers
+	for (int d = 1; d <= 3; d++){
 		int dCount = die.countState(d);
 		if (dCount  >= 3) {
 			monster.gainVictory(d + Math.max(0, dCount-3));
@@ -70,10 +81,12 @@ private void handleDice(Monster monster, DiceSet die) {
 	
 	boolean inTokyo = board.inTokyo(monster);
 
+	//Heal if not in tokyo;
 	if (!inTokyo){
 		monster.gainHealth(hearts);
 	}
 	
+	//Hit monsters not in tokyo, if you're in tokyo
 	if (inTokyo && claws > 0) {
 		for (Monster hitMon : board.getMonstersNotInTokyo()){
 			hitMon.gainHealth(-1*claws);
@@ -81,6 +94,7 @@ private void handleDice(Monster monster, DiceSet die) {
 		}
 	}
 	
+	//Hit monsters in tokyo if you're in tokyo
 	if (!inTokyo && claws > 0) {
 		for (Monster hitMon : board.getMonstersInTokyo()){
 			hitMon.gainHealth(-1*claws);
@@ -97,45 +111,36 @@ private void handleDice(Monster monster, DiceSet die) {
 }
 
 private boolean PromptToLeave(Monster hitMon) {
+	if (hitMon.getHealth() <= 0) {
+		return true; //Asking dead monsters to leave is impolite
+	}
 	System.out.println(hitMon.getName() + ": Do you want to leave Tokyo? Y/N");
 	Scanner scansworth = new Scanner(System.in);
-	while (!scansworth.hasNext("[YN]")){
-		String next = scansworth.next();
-		if(!(next == "Y" || next == "N")) {
+	String next = scansworth.next();
+	while (!((next.contains("Y") || next.contains("N")))){
             System.out.println("Invalid input! Enter a valid response!");
-        } else {
-        	return next == "Y";
-        }
-        	
+            next = scansworth.next();
 	}
-	return false;
+	return next.contains("Y");
 }
 
 
 public Boolean[] chooseDice(int diceNum){
 	Boolean[] responses = new Boolean[diceNum];
 	Scanner scansworth = new Scanner(System.in);
-	for (int i=0; i<diceNum; i++){
-        System.out.printf("Reroll this die? Y\\N (%d)\n",i+1);
-
-        // Give three chances to user for correct input.. 
-        // Else fill this array element with false value..
-
-        while (!scansworth.hasNext("[YN]")) {
-            String next = scansworth.next();
-            if(!(next == "Y" || next == "N")) {
-            System.out.printf("Invalid input! Enter a valid response for die %d! \n",i+1);
-            }
-        }    
-             /** User has entered valid input.. check it for Y, or N **/
-             responses[i] = (scansworth.next()).equals("Y") ? true : false;
-        // If User hasn't entered valid input.. then it will not go in the if  
-        // then this element will have default value `false` for boolean..
-	}
+    System.out.printf("Enter the dice to reroll: (1-%d) or Q to stop rolling\n", diceNum);
+    String next = scansworth.next();
+    for (Integer i = 1; i<=diceNum; i++) {
+    	if (!next.contains("Q")){
+    	responses[i-1] = next.contains(i.toString());
+    	} else {
+    		responses[i-1] = false;
+    	}
+    }
 	return responses;
 }
 public Game (int num_of_monsters, String[] names) {
-	ArrayList<Monster> monsters = new ArrayList<Monster>();
+	ArrayList<Monster> monsters = new ArrayList<Monster>(num_of_monsters);
 	for (int i= 0; i <num_of_monsters; i++){
 		Monster mon = new Monster(names[i]);
 		monsters.add(mon);
