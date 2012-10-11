@@ -49,14 +49,27 @@ public ArrayList<Monster> getMonstersNotInTokyo(){
 	return notInTokyo;
 }
 public void AddToTokyo(Monster mons) {
-	if (monsterCount() > 4) {
-		if (tokyoMon == null) {
-			tokyoMon = mons;
-		} else {
-			tokyoBayMon = mons;
-		}
-	} else {
+	if (monsterCount() <=4) {
+		
+		//begin 4-player logic
+		assert(tokyoMon == null);
 		tokyoMon = mons;
+	} else {
+		
+		//begin 5-6 player logic
+		assert(tokyoMon == null || tokyoBayMon == null);
+		if (tokyoMon == null && tokyoBayMon == null) {
+			tokyoMon = mons;
+		} else if (tokyoMon == null && tokyoBayMon != null) {
+			tokyoMon = tokyoBayMon;
+			tokyoBayMon = mons;
+		} else if (tokyoMon != null && tokyoBayMon == null) {
+			tokyoBayMon = mons;
+		} else {
+			System.out.println("Something broke, hoss.");
+			System.exit(-1);
+		}
+
 	}
 	notInTokyo.remove(mons);
 }

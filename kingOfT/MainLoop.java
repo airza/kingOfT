@@ -1,11 +1,5 @@
 package kingOfT;
 
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-
-
-
 public class MainLoop {
 
 	/**

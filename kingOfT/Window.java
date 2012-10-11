@@ -1,10 +1,9 @@
 package kingOfT;
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.*;
 
@@ -20,11 +19,19 @@ class ButtonListener implements ActionListener {
 }
 
 public class Window {
+
 	JButton[] diceButtons;
+	
+	public void pause(){
+		System.out.println("Press enter key to continue...");
+		Scanner scn = new Scanner(System.in);
+		scn.nextLine();
+	}
 	public void drawDice(DiceSet dice){
 		for (Integer i = 0; i <DICE_TYPES; i++) {
 			diceButtons[i].setIcon(diceImages[dice.getIndexState(i)]);
 		}
+		System.out.println(dice.stateRender());
 	}
 	private JButton makeButton(Container parent, int i) {
 		JButton button = new JButton(diceImages[i]);
@@ -35,7 +42,6 @@ public class Window {
 	}
 	final ImageIcon diceImages[] = {
 			new ImageIcon("Pictures/lightning.png"),
-
 			new ImageIcon("Pictures/1.png"),
 			new ImageIcon("Pictures/2.png"),
 			new ImageIcon("Pictures/3.png"),

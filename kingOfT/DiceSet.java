@@ -25,14 +25,13 @@ public class DiceSet {
 	public void setState (int[] states) {
 		diceState = states;
 	}
-	public String stateRender(Window window) {
+	public String stateRender() {
 		//This should be handled by the view later?
 		StringBuilder str = new StringBuilder();
 		str.append("123456\n");
 		for (int i = 0; i<diceState.length; i++) {
 			str.append(diceRenders.get(diceState[i]));
 		}
-		window.drawDice(this);
 		return str.toString();
 	}
 	
