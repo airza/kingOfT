@@ -1,5 +1,9 @@
 package kingOfT;
 
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+
 
 
 public class MainLoop {
@@ -8,7 +12,7 @@ public class MainLoop {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Window();
+		Window win  = new Window();
 		final int PLAYER_NUM = 4;
 		final String[] NAMES = {"A","B","C","D"};
 
