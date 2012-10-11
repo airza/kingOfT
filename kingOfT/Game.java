@@ -7,6 +7,7 @@ public class Game {
 private final int NUMBER_OF_REROLLS = 3;
 private final int NUMBER_OF_DICE = 6;
 private TokyoArea board;
+private Window window;
 
 public void cleanUp() {
 	ArrayList<Monster> killed = new ArrayList<Monster>();
@@ -42,14 +43,14 @@ public void takeTurn() {
 	System.out.println(board.getCurMon().getName() + "'S TURN");
 	DiceSet dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
 	dice.rollDice();
-	System.out.println(dice.stateRender());
+	System.out.println(dice.stateRender(window));
 	while(dice.getRollsLeft()>0) {
 		Boolean[] rerolls = chooseDice(NUMBER_OF_DICE);
 		if (!someRerolled(rerolls)){
 			break;
 		}
 		dice.rollDice(rerolls);
-		draw(dice.stateRender());
+		draw(dice.stateRender(window));
 	}
 	handleDice(board.getCurMon(),dice);
 	cleanUp();
@@ -139,12 +140,13 @@ public Boolean[] chooseDice(int diceNum){
     }
 	return responses;
 }
-public Game (int num_of_monsters, String[] names) {
+public Game (int num_of_monsters, String[] names, Window win) {
 	ArrayList<Monster> monsters = new ArrayList<Monster>(num_of_monsters);
 	for (int i= 0; i <num_of_monsters; i++){
 		Monster mon = new Monster(names[i]);
 		monsters.add(mon);
 	}
 	board = new TokyoArea(monsters);
+	window = win;
 }
 }
