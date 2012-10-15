@@ -35,6 +35,9 @@ public class DiceSet {
 		return str.toString();
 	}
 	
+	public int getIndexState(int index){
+		return diceState[index];
+	}
 	public int countState(int state){
 		int count = 0;
 		for (int d :diceState) {
