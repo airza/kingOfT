@@ -1,15 +1,15 @@
 	package kingOfT;
 	import java.awt.Dimension;
-	import java.awt.event.ActionEvent;
-	import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-	import javax.swing.*;
+import javax.swing.*;
 
 
 public class DicePane {
 	final int MAX_PLAYERS = 6;
 	final int DICE_TYPES = 6;
-	JFrame frame;
+	JPanel panel;
 	class ButtonListener implements ActionListener {
 	
 		Integer element;
@@ -28,8 +28,8 @@ public class DicePane {
 		}
 		System.out.println(dice.stateRender());
 	}
-	public JFrame getFrame() {
-		return frame;
+	public JPanel getPanel() {
+		return panel;
 	}
 	private JButton makeButton(int i) {
 		JButton button = new JButton(diceImages[i]);
@@ -48,17 +48,16 @@ public class DicePane {
 
 	public DicePane() {
 
-	frame = new JFrame("dice");
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	panel = new JPanel();
 	diceButtons = new JButton[DICE_TYPES];
 	for (Integer i = 0; i<DICE_TYPES; i++) {
 		diceButtons[i] = makeButton(i);
-		frame.add(diceButtons[i]);
+		panel.add(diceButtons[i]);
 	}
-	BoxLayout box = new BoxLayout(frame.getContentPane(),BoxLayout.X_AXIS);
-	frame.setLayout(box);
-	frame.setVisible(true);
-	frame.setMinimumSize(new Dimension(100,500));
+	BoxLayout box = new BoxLayout(panel,BoxLayout.X_AXIS);
+	panel.setLayout(box);
+	panel.setVisible(true);
+	panel.setMinimumSize(new Dimension(100,500));
 	
 	}
 	}
