@@ -56,6 +56,8 @@ public Boolean someRerolled(Boolean[] choices) {
 }
 
 public void startTurn() {
+	dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
+	window.setDice(dice);
 	System.out.println(board.getCurMon().getName() + "'S TURN");
 	if (board.getMonstersInTokyo().contains(board.getCurMon())){
 		board.getCurMon().gainVictory(POINTS_FOR_TOKYO_START);
@@ -68,7 +70,6 @@ public void endTurn() {
 	}
 	draw(board.stateRender());
 	board.advanceMonsterTurn();
-	dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
 }
 private void draw(String string) {
 	System.out.println(string);

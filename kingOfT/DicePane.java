@@ -30,14 +30,13 @@ public class DicePane {
 	}
 	class RollButtonListener implements ActionListener {
 		DicePane pane;
-		Game game;
 		public void actionPerformed(ActionEvent e) {
 			Boolean[] rolls = new Boolean[pane.DICE_NUM];
 			for (int i = 0; i<pane.DICE_NUM; i++){
 				rolls[i] = !pane.diceButtons[i].isBorderPainted();
 			}
 			pane.dice.rollDice(rolls);
-			if(dice.getRollsLeft() == 0 || !game.someRerolled(rolls)) {
+			if(dice.getRollsLeft() == 0) {
 				JButton parent = (JButton) e.getSource();
 				parent.removeActionListener(this);
 				game.handleDice(dice);
@@ -53,13 +52,14 @@ public class DicePane {
 	}
 	class OkButtonListener implements ActionListener {
 		DicePane pane;
-		Game game;
 		public void actionPerformed(ActionEvent e) {
 			JButton parent = (JButton) e.getSource();
 			game.endTurn();
 			parent.removeActionListener(this);
 			parent.setText("ROLL!");
 			parent.addActionListener(rollListener);
+			game.startTurn();
+			pane.drawDice();
 	    }
 	    public OkButtonListener(DicePane p,Game g){
     		pane = p;
@@ -86,6 +86,12 @@ public class DicePane {
 		button.setBorder(BorderFactory.createLineBorder(Color.red));
 		return button;
 	}
+	public Game getGame() {
+		return game;
+	}
+	public void setGame(Game game) {
+		this.game = game;
+	}
 	final ImageIcon diceImages[] = {
 			new ImageIcon("Pictures/lightning.png"),
 			new ImageIcon("Pictures/1.png"),
@@ -105,17 +111,14 @@ public class DicePane {
 		panel.add(diceButtons[i]);
 	}
 	panel.add(okButton);
-	rollListener = new RollButtonListener(this,game);
-	okButtonListener = new OkButtonListener(this,game);
-	okButton.addActionListener(new RollButtonListener(this,game));
+	rollListener = new RollButtonListener(this,getGame());
+	okButtonListener = new OkButtonListener(this,getGame());
+	okButton.addActionListener(rollListener);
 	BoxLayout box = new BoxLayout(panel,BoxLayout.X_AXIS);
 	panel.setLayout(box);
 	panel.setVisible(true);
 	panel.setMinimumSize(new Dimension(100,500));
 	
 	}
-	public Object getDice() {
-		// TODO Auto-generated method stub
-		return null;
 	}
-	}
+
