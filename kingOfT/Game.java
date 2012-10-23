@@ -10,6 +10,7 @@ private final int POINTS_FOR_TOKYO_START = 2;
 private final int POINTS_FOR_TOKYO_ENTER = 1;
 private TokyoArea board;
 private Window window;
+public DiceSet dice;
 
 public Boolean askYNQuestion(String text){
 	System.out.println(text);
@@ -45,13 +46,7 @@ public void cleanUp() {
 		System.exit(0);
 	}
 }
-
-
-private void win(Monster m) {
-	System.out.println(m.getName() + " WINS!");
-	System.exit(0);
-}
-private Boolean someRerolled(Boolean[] choices) {
+public Boolean someRerolled(Boolean[] choices) {
 	//Find out if some dice were rerolled (The user doesn't have to keep rolling, otherwise
 	Boolean someTrue = false;
 	for (Boolean c :choices) {
@@ -60,37 +55,20 @@ private Boolean someRerolled(Boolean[] choices) {
 	return someTrue;
 }
 
-public void doRollsForTurn(DiceSet dice){
-	dice.rollDice();
-	window.drawDice();
-	
-while(dice.getRollsLeft()>0) {
-
-	Boolean[] rerolls = chooseDice(NUMBER_OF_DICE);
-	if (!someRerolled(rerolls)){
-		break;
-	}
-	dice.rollDice(rerolls);
-	window.drawDice();
-}
-}
-public void takeTurn() {
+public void startTurn() {
 	System.out.println(board.getCurMon().getName() + "'S TURN");
 	if (board.getMonstersInTokyo().contains(board.getCurMon())){
 		board.getCurMon().gainVictory(POINTS_FOR_TOKYO_START);
 		cleanUp();
 	}
-	DiceSet dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
-	window.setDice(dice);
-	doRollsForTurn(dice);
-	handleDice(dice);
-	cleanUp();
+}
+public void endTurn() {
 	for (Monster m : board.getMonsters()) {
 		draw(m.stateRender());
 	}
 	draw(board.stateRender());
-	window.pause();
 	board.advanceMonsterTurn();
+	dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
 }
 private void draw(String string) {
 	System.out.println(string);
@@ -138,6 +116,7 @@ public void handleDice(DiceSet die) {
 			}
 		}
 		if(board.tokyoHasSpace()){
+			curMon.gainVictory(POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
 	}
@@ -176,5 +155,7 @@ public Game (int num_of_monsters, String[] names, Window win) {
 	}
 	board = new TokyoArea(monsters);
 	window = win;
+	dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
+	window.setDice(dice);
 }
 }

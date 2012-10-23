@@ -11,8 +11,7 @@ public class MainLoop {
 		final String[] NAMES = {"A","B","C","D"};
 
 		Game game = new Game(PLAYER_NUM,NAMES,win);
-		while (true) {
-		game.takeTurn();
-		}
+		game.startTurn();
+		win.drawDice();
 	}
 }

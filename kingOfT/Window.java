@@ -8,11 +8,6 @@ public class Window {
 
 	JButton[] diceButtons;
 	DicePane dicePane;
-	public void pause(){
-		System.out.println("Press enter key to continue...");
-		Scanner scn = new Scanner(System.in);
-		scn.nextLine();
-	}
 	public void drawDice(){
 		dicePane.drawDice();
 	}

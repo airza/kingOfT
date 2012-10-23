@@ -86,5 +86,6 @@ public class DiceSet {
 	rollsLeft = n;
 	diceCount = s;
 	diceState = new int[s];
+	rollDice();
 	}
 }

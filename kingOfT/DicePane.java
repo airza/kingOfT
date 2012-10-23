@@ -37,7 +37,7 @@ public class DicePane {
 				rolls[i] = !pane.diceButtons[i].isBorderPainted();
 			}
 			pane.dice.rollDice(rolls);
-			if(dice.getRollsLeft() == 0) {
+			if(dice.getRollsLeft() == 0 || !game.someRerolled(rolls)) {
 				JButton parent = (JButton) e.getSource();
 				parent.removeActionListener(this);
 				game.handleDice(dice);
@@ -55,6 +55,11 @@ public class DicePane {
 		DicePane pane;
 		Game game;
 		public void actionPerformed(ActionEvent e) {
+			JButton parent = (JButton) e.getSource();
+			game.endTurn();
+			parent.removeActionListener(this);
+			parent.setText("ROLL!");
+			parent.addActionListener(rollListener);
 	    }
 	    public OkButtonListener(DicePane p,Game g){
     		pane = p;
@@ -100,8 +105,8 @@ public class DicePane {
 		panel.add(diceButtons[i]);
 	}
 	panel.add(okButton);
-	rollListener  new RollButtonListener(this,game);
-	okButtonListener = new RollButtonListener(this,game);
+	rollListener = new RollButtonListener(this,game);
+	okButtonListener = new OkButtonListener(this,game);
 	okButton.addActionListener(new RollButtonListener(this,game));
 	BoxLayout box = new BoxLayout(panel,BoxLayout.X_AXIS);
 	panel.setLayout(box);
