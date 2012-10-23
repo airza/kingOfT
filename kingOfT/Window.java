@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
-
 public class Window {
 
 	JButton[] diceButtons;
@@ -14,9 +13,8 @@ public class Window {
 		Scanner scn = new Scanner(System.in);
 		scn.nextLine();
 	}
-	public void drawDice(DiceSet dice){
-		dicePane.drawDice(dice);
-		System.out.println(dice.stateRender());
+	public void drawDice(){
+		dicePane.drawDice();
 	}
 	public Window() {
 
@@ -25,5 +23,8 @@ public class Window {
 	frame.add(dicePane.getPanel());
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
+	}
+	public void setDice(DiceSet dice) {
+		dicePane.setDice(dice);	
 	}
 }

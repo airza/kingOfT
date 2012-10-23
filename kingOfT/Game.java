@@ -62,7 +62,7 @@ private Boolean someRerolled(Boolean[] choices) {
 
 public void doRollsForTurn(DiceSet dice){
 	dice.rollDice();
-	window.drawDice(dice);
+	window.drawDice();
 	
 while(dice.getRollsLeft()>0) {
 
@@ -71,7 +71,7 @@ while(dice.getRollsLeft()>0) {
 		break;
 	}
 	dice.rollDice(rerolls);
-	window.drawDice(dice);
+	window.drawDice();
 }
 }
 public void takeTurn() {
@@ -81,8 +81,9 @@ public void takeTurn() {
 		cleanUp();
 	}
 	DiceSet dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
+	window.setDice(dice);
 	doRollsForTurn(dice);
-	handleDice(board.getCurMon(),dice);
+	handleDice(dice);
 	cleanUp();
 	for (Monster m : board.getMonsters()) {
 		draw(m.stateRender());
@@ -95,7 +96,8 @@ private void draw(String string) {
 	System.out.println(string);
 }
 
-private void handleDice(Monster monster, DiceSet die) {
+public void handleDice(DiceSet die) {
+	Monster curMon = board.getCurMon();
 	int energy = die.countState(0);
 	int claws = die.countState(4);
 	int hearts = die.countState(5);
@@ -104,18 +106,18 @@ private void handleDice(Monster monster, DiceSet die) {
 	for (int d = 1; d <= 3; d++){
 		int dCount = die.countState(d);
 		if (dCount  >= 3) {
-			monster.gainVictory(d + Math.max(0, dCount-3));
+			curMon.gainVictory(d + Math.max(0, dCount-3));
 			
 		}
 	}
 
-	monster.gainEnergy(energy);
+	curMon.gainEnergy(energy);
 	
-	boolean inTokyo = board.inTokyo(monster);
+	boolean inTokyo = board.inTokyo(curMon);
 
 	//Heal if not in tokyo;
 	if (!inTokyo){
-		monster.gainHealth(hearts);
+		curMon.gainHealth(hearts);
 	}
 	
 	//Hit monsters not in tokyo, if you're in tokyo
@@ -136,9 +138,10 @@ private void handleDice(Monster monster, DiceSet die) {
 			}
 		}
 		if(board.tokyoHasSpace()){
-			board.AddToTokyo(monster);
+			board.AddToTokyo(curMon);
 		}
 	}
+	cleanUp();
 	
 }
 
