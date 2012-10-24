@@ -36,6 +36,7 @@ public class DicePane {
 				rolls[i] = !pane.diceButtons[i].isBorderPainted();
 			}
 			pane.dice.rollDice(rolls);
+			pane.drawDice();
 			if(dice.getRollsLeft() == 0) {
 				JButton parent = (JButton) e.getSource();
 				parent.removeActionListener(this);
@@ -43,7 +44,6 @@ public class DicePane {
 				parent.setText("OK");
 				parent.addActionListener(okButtonListener);
 			}
-			pane.drawDice();
 	    }
 	    public RollButtonListener(DicePane p,Game g){
     		pane = p;
