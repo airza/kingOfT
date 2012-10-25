@@ -8,8 +8,7 @@ import javax.swing.*;
 
 
 public class DicePane {
-	private final int DICE_NUM = 6;
-	private final int DICE_TYPES = 6;
+
 	private JPanel panel;
 	private DiceSet dice;
 	private Game game;
@@ -17,39 +16,18 @@ public class DicePane {
 	private JButton okButton;
 	private RollButtonListener rollListener;
 	private OkButtonListener okButtonListener;
-	class ButtonListener implements ActionListener {
+	class DiceToggleListener implements ActionListener {
 		Integer element;
 		public void actionPerformed(ActionEvent e) {
 			JButton parent = (JButton) e.getSource();
 			parent.setBorderPainted(!parent.isBorderPainted());
 			System.out.println(element);
 	    }
-	    public ButtonListener(Integer i){
+	    public DiceToggleListener(Integer i){
     		element = i;
     	}
 	}
-	class RollButtonListener implements ActionListener {
-		DicePane pane;
-		public void actionPerformed(ActionEvent e) {
-			Boolean[] rolls = new Boolean[pane.DICE_NUM];
-			for (int i = 0; i<pane.DICE_NUM; i++){
-				rolls[i] = !pane.diceButtons[i].isBorderPainted();
-			}
-			pane.dice.rollDice(rolls);
-			pane.drawDice();
-			if(dice.getRollsLeft() == 0) {
-				JButton parent = (JButton) e.getSource();
-				parent.removeActionListener(this);
-				game.handleDice(dice);
-				parent.setText("OK");
-				parent.addActionListener(okButtonListener);
-			}
-	    }
-	    public RollButtonListener(DicePane p,Game g){
-    		pane = p;
-    		game = g;
-    	}
-	}
+
 	class OkButtonListener implements ActionListener {
 		DicePane pane;
 		public void actionPerformed(ActionEvent e) {
@@ -81,7 +59,7 @@ public class DicePane {
 	}
 	private JButton makeButton(int i) {
 		JButton button = new JButton(diceImages[i]);
-		button.addActionListener(new ButtonListener(i));
+		button.addActionListener(new DiceToggleListener(i));
 		button.setSize(100,100);
 		button.setBorder(BorderFactory.createLineBorder(Color.red));
 		return button;
@@ -100,7 +78,12 @@ public class DicePane {
 			new ImageIcon("Pictures/wham.png"),
 			new ImageIcon("Pictures/heart.png"),
 	};
-
+	public Boolean[] checkToggleState(Boolean state){
+		Boolean[] states = new Boolean[GameConstants.DICE_NUM];
+		for (int i = 0; i< GameConstants.DICE_NUM; i++) {
+			states[i] = diceButtons[i].isBorderPainted() == state;
+		}
+	}
 	public DicePane() {
 
 	panel = new JPanel();

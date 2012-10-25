@@ -26,5 +26,8 @@ public class Window {
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
 	}
+	public Boolean[] getUnselectedDice() {
+		return dicePane.checkToggleState(false);
+	}
 
 }
