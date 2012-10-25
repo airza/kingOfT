@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 public class Window {
-
+	public static Boolean askYNQuestion(String text){
+		return JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null,text,null,JOptionPane.YES_NO_OPTION);
+	}
 	JButton[] diceButtons;
 	DicePane dicePane;
 	public void drawDice(){

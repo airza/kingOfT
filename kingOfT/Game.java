@@ -6,17 +6,17 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class Game {
-private final int NUMBER_OF_REROLLS = 3;
-private final int NUMBER_OF_DICE = 6;
-private final int POINTS_FOR_TOKYO_START = 2;
-private final int POINTS_FOR_TOKYO_ENTER = 1;
+private final static int NUMBER_OF_REROLLS = 3;
+private final static int NUMBER_OF_DICE = 6;
+private final static int POINTS_FOR_TOKYO_START = 2;
+private final static int POINTS_FOR_TOKYO_ENTER = 1;
+public final static int STATE_ROLLING = 0;
+public final static int STATE_ACKNOWLEDGE = 1;
 private TokyoArea board;
 private Window window;
 public DiceSet dice;
 
-public Boolean askYNQuestion(String text){
-	return JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null,text,null,JOptionPane.YES_NO_OPTION);
-}
+
 public void cleanUp() {
 	ArrayList<Monster> killed = new ArrayList<Monster>();
 	ArrayList<Monster> winners = new ArrayList<Monster>();
@@ -123,7 +123,7 @@ private boolean PromptToLeave(Monster hitMon) {
 	if (hitMon.getHealth() <= 0) {
 		return true; //Asking dead monsters to leave is impolite
 	} else
-		return askYNQuestion(hitMon.getName()+": Do you want to leave Tokyo?");
+		return Window.askYNQuestion(hitMon.getName()+": Do you want to leave Tokyo?");
 
 }
 
