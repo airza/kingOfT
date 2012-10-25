@@ -3,6 +3,8 @@ package kingOfT;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class Game {
 private final int NUMBER_OF_REROLLS = 3;
 private final int NUMBER_OF_DICE = 6;
@@ -13,15 +15,7 @@ private Window window;
 public DiceSet dice;
 
 public Boolean askYNQuestion(String text){
-	System.out.println(text);
-	Scanner scansworth = new Scanner(System.in);
-	String next = scansworth.next();
-	while (!((next.contains("Y") || next.contains("N")))){
-            System.out.println("Invalid input! Enter a valid response!");
-        	System.out.println(text);
-            next = scansworth.next();
-	}
-	return next.contains("Y");
+	return JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null,text,null,JOptionPane.YES_NO_OPTION);
 }
 public void cleanUp() {
 	ArrayList<Monster> killed = new ArrayList<Monster>();
