@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import kingOfT.Game.RollButtonListener;
+
 
 public class DicePane {
 
@@ -14,39 +16,16 @@ public class DicePane {
 	private Game game;
 	private JButton[] diceButtons;
 	private JButton okButton;
-	private RollButtonListener rollListener;
-	private OkButtonListener okButtonListener;
+	private DiceToggleListener toggle = new DiceToggleListener();
 	class DiceToggleListener implements ActionListener {
-		Integer element;
 		public void actionPerformed(ActionEvent e) {
 			JButton parent = (JButton) e.getSource();
 			parent.setBorderPainted(!parent.isBorderPainted());
-			System.out.println(element);
 	    }
-	    public DiceToggleListener(Integer i){
-    		element = i;
-    	}
-	}
-
-	class OkButtonListener implements ActionListener {
-		DicePane pane;
-		public void actionPerformed(ActionEvent e) {
-			JButton parent = (JButton) e.getSource();
-			game.endTurn();
-			parent.removeActionListener(this);
-			parent.setText("ROLL!");
-			parent.addActionListener(rollListener);
-			game.startTurn();
-			pane.drawDice();
-	    }
-	    public OkButtonListener(DicePane p,Game g){
-    		pane = p;
-    		game = g;
-    	}
 	}
 	
 	public void drawDice(){
-		for (Integer i = 0; i <DICE_NUM; i++) {
+		for (Integer i = 0; i <GameConstants.DICE_NUM; i++) {
 			diceButtons[i].setIcon(diceImages[dice.getIndexState(i)]);
 		}
 		System.out.println(dice.stateRender());
@@ -59,7 +38,6 @@ public class DicePane {
 	}
 	private JButton makeButton(int i) {
 		JButton button = new JButton(diceImages[i]);
-		button.addActionListener(new DiceToggleListener(i));
 		button.setSize(100,100);
 		button.setBorder(BorderFactory.createLineBorder(Color.red));
 		return button;
@@ -83,25 +61,39 @@ public class DicePane {
 		for (int i = 0; i< GameConstants.DICE_NUM; i++) {
 			states[i] = diceButtons[i].isBorderPainted() == state;
 		}
+		return states;
+	}
+	public void enableDicetoggling ( Boolean turnOn) {
+		if (turnOn) {
+			for (JButton b: diceButtons){
+				b.addActionListener(toggle);
+			}
+		
+		} else {
+			for (JButton b: diceButtons){
+				b.removeActionListener(toggle);
+			}
+		}
 	}
 	public DicePane() {
 
 	panel = new JPanel();
-	diceButtons = new JButton[DICE_NUM];
+	diceButtons = new JButton[GameConstants.DICE_NUM];
 	okButton  = new JButton("ROLL!");
-	for (Integer i = 0; i<DICE_NUM; i++) {
+	for (Integer i = 0; i<GameConstants.DICE_NUM; i++) {
 		diceButtons[i] = makeButton(i);
 		panel.add(diceButtons[i]);
 	}
 	panel.add(okButton);
-	rollListener = new RollButtonListener(this,getGame());
-	okButtonListener = new OkButtonListener(this,getGame());
-	okButton.addActionListener(rollListener);
 	BoxLayout box = new BoxLayout(panel,BoxLayout.X_AXIS);
 	panel.setLayout(box);
 	panel.setVisible(true);
 	panel.setMinimumSize(new Dimension(100,500));
-	
+	enableDicetoggling(true);
+	}
+	public JButton getOkButton() {
+		return okButton;
+		
 	}
 	}
 

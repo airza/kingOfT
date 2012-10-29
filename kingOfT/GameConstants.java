@@ -1,4 +1,4 @@
-
+package kingOfT;
 class GameConstants {
 	public final static int DICE_NUM = 6;
 	public final static int DICE_TYPES = 6;

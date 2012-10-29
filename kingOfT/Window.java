@@ -1,5 +1,6 @@
 package kingOfT;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -18,6 +19,9 @@ public class Window {
 	public void setGame(Game g){
 		dicePane.setGame(g);
 	}
+	public Boolean[] getUnselectedDice() {
+		return dicePane.checkToggleState(false);
+	}
 	public Window() {
 
 	JFrame frame = new JFrame("HI");
@@ -26,8 +30,10 @@ public class Window {
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
 	}
-	public Boolean[] getUnselectedDice() {
-		return dicePane.checkToggleState(false);
+	public void setMainButtonListener(ActionListener l) {
+		dicePane.getOkButton().addActionListener(l);
+		
 	}
+
 
 }
