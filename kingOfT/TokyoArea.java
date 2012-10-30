@@ -32,7 +32,7 @@ public ArrayList<Monster> getMonsters() {
 public void advanceMonsterTurn() { 
     int	size = monsterCount();
 	int curMonIndex = monsters.indexOf(curMon);
-	curMonIndex = (curMonIndex + 1) % (size-1);
+	curMonIndex = (curMonIndex + 1) % (size);
 	curMon = monsters.get(curMonIndex);
 }
 public ArrayList<Monster> getMonstersInTokyo(){

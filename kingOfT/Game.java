@@ -1,22 +1,68 @@
 package kingOfT;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Game {
-private final static int NUMBER_OF_REROLLS = 3;
-private final static int NUMBER_OF_DICE = 6;
-private final static int POINTS_FOR_TOKYO_START = 2;
-private final static int POINTS_FOR_TOKYO_ENTER = 1;
-public final static int STATE_ROLLING = 0;
-public final static int STATE_ACKNOWLEDGE = 1;
-private TokyoArea board;
-private Window window;
-public DiceSet dice;
+	private final static int STATE_ROLLING = 0;
+	private final static int STATE_DONE_ROLLING = 1;
+	private final static int TURN_OVER = 2;
+	private static final int TURN_BEGIN = 3;
+	private TokyoArea board;
+	private Window window;
+	public DiceSet dice;
+	public RollButtonListener rollButtonListener = new RollButtonListener();
+	public OkButtonListener okButtonListener = new OkButtonListener();
+	class RollButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Boolean[] rolls = window.getUnselectedDice();
+			dice.rollDice(rolls);
+			window.drawDice();
+			if(dice.getRollsLeft() == 0 || !someRerolled(rolls)) {
+				changeState(STATE_DONE_ROLLING);
+				JButton parent = (JButton) e.getSource();
+				parent.setText("OK!");
+				parent.removeActionListener(this);
+				parent.addActionListener(okButtonListener);
+			}
 
+	    }
+	}
+	class OkButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JButton parent = (JButton) e.getSource();
+			changeState(TURN_OVER);
+			parent.removeActionListener(this);
+			parent.setText("ROLL!");
+			parent.addActionListener(rollButtonListener);
+			changeState(TURN_BEGIN);
 
+	    }
+	}
+public void changeState(int state){
+	switch(state){
+	case STATE_DONE_ROLLING:
+		handleTurn();
+		break;
+	case TURN_OVER:
+		endTurn();
+		break;
+	case TURN_BEGIN:
+		startTurn();
+		window.drawDice();
+		break;
+	}	
+}
+private void handleTurn() {
+	handleDice(dice);
+	cleanUp();
+	
+}
 public void cleanUp() {
 	ArrayList<Monster> killed = new ArrayList<Monster>();
 	ArrayList<Monster> winners = new ArrayList<Monster>();
@@ -50,11 +96,12 @@ public Boolean someRerolled(Boolean[] choices) {
 }
 
 public void startTurn() {
-	dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
+	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
 	System.out.println(board.getCurMon().getName() + "'S TURN");
 	if (board.getMonstersInTokyo().contains(board.getCurMon())){
-		board.getCurMon().gainVictory(POINTS_FOR_TOKYO_START);
+		board.getCurMon().gainVictory(GameConstants.POINTS_FOR_TOKYO_START);
+		System.out.println(board.getCurMon().getName() + " gets "+GameConstants.POINTS_FOR_TOKYO_START + " points for keeping tokyo!");
 		cleanUp();
 	}
 }
@@ -111,12 +158,10 @@ public void handleDice(DiceSet die) {
 			}
 		}
 		if(board.tokyoHasSpace()){
-			curMon.gainVictory(POINTS_FOR_TOKYO_ENTER);
+			curMon.gainVictory(GameConstants.POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
 	}
-	cleanUp();
-	
 }
 
 private boolean PromptToLeave(Monster hitMon) {
@@ -150,7 +195,7 @@ public Game (int num_of_monsters, String[] names, Window win) {
 	}
 	board = new TokyoArea(monsters);
 	window = win;
-	dice = new DiceSet(NUMBER_OF_REROLLS,NUMBER_OF_DICE);
+	window.setMainButtonListener(rollButtonListener);
 	window.setDice(dice);
 }
 }
