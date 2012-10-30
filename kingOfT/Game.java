@@ -68,7 +68,7 @@ public void cleanUp() {
 	ArrayList<Monster> winners = new ArrayList<Monster>();
 	for(Monster m: board.getMonsters()){
 		if (m.getHealth()<=0){
-			draw(m.getName() + " was killed!");
+			window.write(m.getName() + " was killed!");
 			killed.add(m);
 		}
 		if (m.getVP() >= 20){
@@ -81,7 +81,7 @@ public void cleanUp() {
 	}
 	if (winners.size() > 0) {
 		for (Monster m: winners){
-			draw(m.getName()+" Wins!");
+			window.write(m.getName()+" Wins!");
 		}
 		System.exit(0);
 	}
@@ -98,22 +98,19 @@ public Boolean someRerolled(Boolean[] choices) {
 public void startTurn() {
 	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
-	System.out.println(board.getCurMon().getName() + "'S TURN");
+	window.write(board.getCurMon().getName() + "'S TURN");
 	if (board.getMonstersInTokyo().contains(board.getCurMon())){
 		board.getCurMon().gainVictory(GameConstants.POINTS_FOR_TOKYO_START);
-		System.out.println(board.getCurMon().getName() + " gets "+GameConstants.POINTS_FOR_TOKYO_START + " points for keeping tokyo!");
+		window.write(board.getCurMon().getName() + " gets "+GameConstants.POINTS_FOR_TOKYO_START + " points for keeping tokyo!");
 		cleanUp();
 	}
 }
 public void endTurn() {
 	for (Monster m : board.getMonsters()) {
-		draw(m.stateRender());
+		window.write(m.stateRender());
 	}
-	draw(board.stateRender());
+	window.write(board.stateRender());
 	board.advanceMonsterTurn();
-}
-private void draw(String string) {
-	System.out.println(string);
 }
 
 public void handleDice(DiceSet die) {

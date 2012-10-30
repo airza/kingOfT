@@ -19,6 +19,9 @@ public class Window {
 	public Boolean[] getUnselectedDice() {
 		return dicePane.checkToggleState(false);
 	}
+	public void write(String text) {
+		System.out.println(text);
+	}
 	public Window() {
 
 	JFrame frame = new JFrame("HI");
