@@ -16,9 +16,6 @@ public class Window {
 	public void setDice(DiceSet dice) {
 		dicePane.setDice(dice);	
 	}
-	public void setGame(Game g){
-		dicePane.setGame(g);
-	}
 	public Boolean[] getUnselectedDice() {
 		return dicePane.checkToggleState(false);
 	}

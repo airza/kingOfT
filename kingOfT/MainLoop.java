@@ -11,7 +11,6 @@ public class MainLoop {
 		final String[] NAMES = {"A","B","C","D"};
 		Window win  = new Window();
 		Game game = new Game(PLAYER_NUM,NAMES, win);
-		win.setGame(game);
 		game.startTurn();
 		win.drawDice();
 	}
