@@ -85,6 +85,10 @@ public void cleanUp() {
 		}
 		System.exit(0);
 	}
+	if (board.getMonsters().size() == 0 ) {
+		window.write("DRAW!");
+		System.exit(0);
+	}
 }
 public Boolean someRerolled(Boolean[] choices) {
 	//Find out if some dice were rerolled (The user doesn't have to keep rolling, otherwise

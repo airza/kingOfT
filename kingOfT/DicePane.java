@@ -28,7 +28,6 @@ public class DicePane {
 		for (Integer i = 0; i <GameConstants.DICE_NUM; i++) {
 			diceButtons[i].setIcon(diceImages[dice.getIndexState(i)]);
 		}
-		System.out.println(dice.stateRender());
 	}
 	public JPanel getPanel() {
 		return panel;
