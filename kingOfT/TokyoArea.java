@@ -8,13 +8,12 @@ private Monster tokyoMon = null;
 private Monster tokyoBayMon = null;
 private ArrayList<Monster> notInTokyo;
 private ArrayList<Monster> monsters;
-private Monster curMon;
 
 public int monsterCount(){
 	return monsters.size();
 }
 public Monster getCurMon(){
-	return curMon;
+	return monsters.get(0);
 }
 public Boolean inTokyo(Monster mon){
 	return !notInTokyo.contains(mon);
@@ -23,17 +22,15 @@ public TokyoArea (ArrayList<Monster> mons) {
 	notInTokyo = new ArrayList<Monster>(mons);
 	monsters = new ArrayList<Monster>(mons);
 	Collections.shuffle(monsters);
-	curMon = monsters.get(0);
 }
 
 public ArrayList<Monster> getMonsters() {
 	return monsters;
 }
 public void advanceMonsterTurn() { 
-    int	size = monsterCount();
-	int curMonIndex = monsters.indexOf(curMon);
-	curMonIndex = (curMonIndex + 1) % (size);
-	curMon = monsters.get(curMonIndex);
+    Monster tempMon = monsters.get(0);
+    monsters.remove(0);
+	monsters.add(tempMon);
 }
 public ArrayList<Monster> getMonstersInTokyo(){
 	ArrayList<Monster> monsInTokyo = new ArrayList<Monster>();
@@ -60,16 +57,9 @@ public void AddToTokyo(Monster mons) {
 		assert(tokyoMon == null || tokyoBayMon == null);
 		if (tokyoMon == null && tokyoBayMon == null) {
 			tokyoMon = mons;
-		} else if (tokyoMon == null && tokyoBayMon != null) {
-			tokyoMon = tokyoBayMon;
-			tokyoBayMon = mons;
-		} else if (tokyoMon != null && tokyoBayMon == null) {
-			tokyoBayMon = mons;
 		} else {
-			System.out.println("Something broke, hoss.");
-			System.exit(-1);
+			tokyoBayMon = mons;
 		}
-
 	}
 	notInTokyo.remove(mons);
 }
@@ -82,12 +72,9 @@ public boolean tokyoHasSpace() {
 }
 public void RemoveFromTokyo(Monster m) {
 	assert(m == tokyoMon || m ==tokyoBayMon);
-	if (m == tokyoMon) {
 		tokyoMon = tokyoBayMon;
-		notInTokyo.add(m);
-	} else {
 		tokyoBayMon = null;
-	}
+	notInTokyo.add(m);
 }
 public String stateRender() {
 		StringBuilder str = new StringBuilder();
