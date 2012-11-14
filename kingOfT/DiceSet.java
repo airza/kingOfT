@@ -10,35 +10,15 @@ public class DiceSet {
 	private static final int NUMBER_OF_SIDES = 6;
 	static private Random diceRoller = new Random();
 	
-	/*This block contains the info to render the dice into text -
-	we'll need to replace it with images in the final version*/
-	private final static HashMap<Integer, String> diceRenders = new HashMap<Integer, String>();
-	static {
-		diceRenders.put(0,"E");
-		diceRenders.put(1,"1");
-		diceRenders.put(2,"2");
-		diceRenders.put(3,"3");
-		diceRenders.put(4,"X");
-		diceRenders.put(5,"H");
-		
-	}
 	public void setState (int[] states) {
 		diceState = states;
-	}
-	public String stateRender() {
-		//This should be handled by the view later?
-		StringBuilder str = new StringBuilder();
-		str.append("123456\n");
-		for (int i = 0; i<diceState.length; i++) {
-			str.append(diceRenders.get(diceState[i]));
-		}
-		return str.toString();
 	}
 	
 	public int getIndexState(int index){
 		return diceState[index];
 	}
 	public int countState(int state){
+		//count number of dice with given state
 		int count = 0;
 		for (int d :diceState) {
 			if (d == state){
@@ -48,6 +28,8 @@ public class DiceSet {
 		return count;
 	}
 	public Boolean[] findState(int state){
+		//return an array with the same size as the dice with TRUE if the state is equal
+		//and false otherwise.
 		Boolean[] hasState = new Boolean[diceCount];
 		for (int i = 0; i<state; i++) {
 				hasState[i] = (diceState[i] == state);
@@ -62,11 +44,8 @@ public class DiceSet {
 		this.rollsLeft = r;
 	}
 	public void rollDice(Boolean[] rolls) {
-		/*this should probably have more explosions if
-		someone tries to roll while empty*/
-		if (rollsLeft == 0) {
-			return;
-		}
+		//for each die, the dice will be rolled if true.
+		assert(rollsLeft != 0);
 		assert(rolls.length == diceState.length);
 		for(int i = 0; i< diceCount; i++){
 			if (rolls[i] == true){
@@ -76,6 +55,7 @@ public class DiceSet {
 		rollsLeft--;
 	}
 	public void rollDice() {
+		//rolls all the dice!  this method is basically useless
 		Boolean[] rolls = new Boolean[diceCount];
 		for (int i =0 ; i < diceCount;i++){
 			rolls[i] = true;

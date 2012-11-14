@@ -19,6 +19,7 @@ public class Game {
 	public RollButtonListener rollButtonListener = new RollButtonListener();
 	public OkButtonListener okButtonListener = new OkButtonListener();
 	class RollButtonListener implements ActionListener {
+		//class which attaches to the 
 		public void actionPerformed(ActionEvent e) {
 			Boolean[] rolls = window.getUnselectedDice();
 			dice.rollDice(rolls);
