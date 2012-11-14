@@ -10,7 +10,9 @@ import kingOfT.Game.RollButtonListener;
 
 
 public class DicePane {
-
+	/*
+	 * This object manages the buttons which control whether dice are or aren't selected.
+	 */
 	private JPanel panel;
 	private DiceSet dice;
 	private Game game;
@@ -18,6 +20,9 @@ public class DicePane {
 	private JButton okButton;
 	private DiceToggleListener toggle = new DiceToggleListener();
 	class DiceToggleListener implements ActionListener {
+		/*toggles the border on click (which is how the game determines
+		 * if the die is locked in or not
+		 */
 		public void actionPerformed(ActionEvent e) {
 			JButton parent = (JButton) e.getSource();
 			parent.setBorderPainted(!parent.isBorderPainted());
@@ -25,6 +30,8 @@ public class DicePane {
 	}
 	
 	public void drawDice(){
+		//called when the dice state has changed and the frame needs to be
+		//updated
 		for (Integer i = 0; i <GameConstants.DICE_NUM; i++) {
 			diceButtons[i].setIcon(diceImages[dice.getIndexState(i)]);
 		}
@@ -36,6 +43,7 @@ public class DicePane {
 		dice = d;
 	}
 	private JButton makeButton(int i) {
+		//todo this function has no particularly good reason to exist
 		JButton button = new JButton(diceImages[i]);
 		button.setSize(100,100);
 		button.setBorder(BorderFactory.createLineBorder(Color.red));
@@ -56,6 +64,7 @@ public class DicePane {
 			new ImageIcon("Pictures/heart.png"),
 	};
 	public Boolean[] checkToggleState(Boolean state){
+		//returns which buttons aren't and are pressed depending on what it's passed
 		Boolean[] states = new Boolean[GameConstants.DICE_NUM];
 		for (int i = 0; i< GameConstants.DICE_NUM; i++) {
 			states[i] = diceButtons[i].isBorderPainted() == state;
@@ -63,6 +72,8 @@ public class DicePane {
 		return states;
 	}
 	public void enableDicetoggling ( Boolean turnOn) {
+		//turns on and off interactivity for buttons (for future when they
+		//shouldn't be rolled during card purchases.
 		if (turnOn) {
 			for (JButton b: diceButtons){
 				b.addActionListener(toggle);
@@ -75,7 +86,7 @@ public class DicePane {
 		}
 	}
 	public DicePane() {
-
+	//make a new panel, add some dice to it, and center them.
 	panel = new JPanel();
 	diceButtons = new JButton[GameConstants.DICE_NUM];
 	okButton  = new JButton("ROLL!");
@@ -89,7 +100,7 @@ public class DicePane {
 	panel.setVisible(true);
 	panel.setMinimumSize(new Dimension(100,500));
 	enableDicetoggling(true);
-	}
+}
 	public JButton getOkButton() {
 		return okButton;
 		
