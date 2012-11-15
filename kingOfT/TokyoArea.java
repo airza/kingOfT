@@ -33,6 +33,7 @@ public void advanceMonsterTurn() {
 	monsters.add(tempMon);
 }
 public ArrayList<Monster> getMonstersInTokyo(){
+	//we could probably just store these in an array, oh well
 	ArrayList<Monster> monsInTokyo = new ArrayList<Monster>();
 	if (tokyoMon!= null ){
 		monsInTokyo.add(tokyoMon);
@@ -54,6 +55,7 @@ public void AddToTokyo(Monster mons) {
 	} else {
 		
 		//begin 5-6 player logic
+		//player should get placed in tokyo if available, but if not, tb
 		assert(tokyoMon == null || tokyoBayMon == null);
 		if (tokyoMon == null && tokyoBayMon == null) {
 			tokyoMon = mons;
@@ -64,6 +66,7 @@ public void AddToTokyo(Monster mons) {
 	notInTokyo.remove(mons);
 }
 public boolean tokyoHasSpace() {
+	//check if there is empty space depending on game size
 	if (monsterCount() > 4) {
 		return (tokyoMon == null ) || (tokyoBayMon == null);
 	} else {
@@ -71,12 +74,15 @@ public boolean tokyoHasSpace() {
 	}
 }
 public void RemoveFromTokyo(Monster m) {
+	//this has the exact same effect in 4 or 6 player, and no matter what
+	//state t/tb is in.
 	assert(m == tokyoMon || m ==tokyoBayMon);
 		tokyoMon = tokyoBayMon;
 		tokyoBayMon = null;
 	notInTokyo.add(m);
 }
 public String stateRender() {
+		//todo move to view
 		StringBuilder str = new StringBuilder();
 		for (Monster m : getMonstersInTokyo()){
 			str.append(m.getName()+" is in tokyo!\n");
@@ -87,6 +93,7 @@ public String stateRender() {
 		return str.toString();
 }
 public void removeMonsters(ArrayList<Monster> killed) {
+	//throw out monsters that are dead
 	for (Monster m : killed){
 		if (m == tokyoMon) {
 			tokyoMon = null;
