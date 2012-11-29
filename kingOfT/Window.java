@@ -40,16 +40,7 @@ public class Window {
 		parent.add(button);
 		return button;
 	}
-	/*private JButton exit(){
-		JButton button = new JButton();
-		button.setSize(100,100);
-		
-		button.setVisible(true);
-		
-		System.exit(0);
-		
-		return button; 
-	}*/
+
 	final ImageIcon diceImages[] = {
 			new ImageIcon("Pictures/lightning.png"),
 			new ImageIcon("Pictures/1.png"),
