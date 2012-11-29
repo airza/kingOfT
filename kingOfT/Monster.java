@@ -7,6 +7,7 @@ public class Monster{
 	private int vp;
 	private int energy;
 	private String name;
+	private MonsterInfo info = new MonsterInfo();
 	//private ArrayList<cards> cards;
 	//kokokokokok
 	
@@ -49,5 +50,8 @@ public class Monster{
 	}
 	public int getVP() {
 		return vp;
+	}
+	public void displayInfo(){
+		info.monsterInfo(energy, vp, health);
 	}
 }

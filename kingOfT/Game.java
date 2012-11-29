@@ -9,59 +9,43 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Game {
-	private final static int STATE_ROLLING = 0;
-	private final static int STATE_DONE_ROLLING = 1;
-	private final static int TURN_OVER = 2;
-	private static final int TURN_BEGIN = 3;
+	public final static int STATE_ROLLING = 0;
+	public final static int STATE_DONE_ROLLING = 1;
 	private TokyoArea board;
 	private Window window;
 	public DiceSet dice;
-	public RollButtonListener rollButtonListener = new RollButtonListener();
-	public OkButtonListener okButtonListener = new OkButtonListener();
+	public RollButtonListener rollButtonListener;
+	public ActionListener okButtonListener;
+	private Game game;
 	class RollButtonListener implements ActionListener {
-		//class which attaches to the 
+		DicePane pane;
 		public void actionPerformed(ActionEvent e) {
 			Boolean[] rolls = window.getUnselectedDice();
 			dice.rollDice(rolls);
-			window.drawDice();
-			if(dice.getRollsLeft() == 0 || !someRerolled(rolls)) {
-				changeState(STATE_DONE_ROLLING);
+			pane.drawDice();
+			if(dice.getRollsLeft() == 0) {
 				JButton parent = (JButton) e.getSource();
-				parent.setText("OK!");
 				parent.removeActionListener(this);
+				
+				game.handleDice(dice);
+				parent.setText("OK");
 				parent.addActionListener(okButtonListener);
 			}
-
 	    }
+	    public RollButtonListener(DicePane p,Game g){
+    		pane = p;
+    		game = g;
+    	}
 	}
-	class OkButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			JButton parent = (JButton) e.getSource();
-			changeState(TURN_OVER);
-			parent.removeActionListener(this);
-			parent.setText("ROLL!");
-			parent.addActionListener(rollButtonListener);
-			changeState(TURN_BEGIN);
 
-	    }
-	}
 public void changeState(int state){
 	switch(state){
 	case STATE_DONE_ROLLING:
 		handleTurn();
-		break;
-	case TURN_OVER:
-		endTurn();
-		break;
-	case TURN_BEGIN:
-		startTurn();
-		window.drawDice();
-		break;
-	}	
+	}
 }
 private void handleTurn() {
-	handleDice(dice);
-	cleanUp();
+	// TODO Auto-generated method stub
 	
 }
 public void cleanUp() {
@@ -69,7 +53,7 @@ public void cleanUp() {
 	ArrayList<Monster> winners = new ArrayList<Monster>();
 	for(Monster m: board.getMonsters()){
 		if (m.getHealth()<=0){
-			window.write(m.getName() + " was killed!");
+			draw(m.getName() + " was killed!");
 			killed.add(m);
 		}
 		if (m.getVP() >= 20){
@@ -82,15 +66,10 @@ public void cleanUp() {
 	}
 	if (winners.size() > 0) {
 		for (Monster m: winners){
-			window.write(m.getName()+" Wins!");
+			draw(m.getName()+" Wins!");
 		}
 		System.exit(0);
 	}
-	if (board.getMonsters().size() == 0 ) {
-		window.write("DRAW!");
-		System.exit(0);
-	}
-	window.drawArea();
 }
 public Boolean someRerolled(Boolean[] choices) {
 	//Find out if some dice were rerolled (The user doesn't have to keep rolling, otherwise
@@ -104,19 +83,21 @@ public Boolean someRerolled(Boolean[] choices) {
 public void startTurn() {
 	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
-	window.write(board.getCurMon().getName() + "'S TURN");
+	System.out.println(board.getCurMon().getName() + "'S TURN");
 	if (board.getMonstersInTokyo().contains(board.getCurMon())){
 		board.getCurMon().gainVictory(GameConstants.POINTS_FOR_TOKYO_START);
-		window.write(board.getCurMon().getName() + " gets "+GameConstants.POINTS_FOR_TOKYO_START + " points for keeping tokyo!");
 		cleanUp();
 	}
 }
 public void endTurn() {
 	for (Monster m : board.getMonsters()) {
-		window.write(m.stateRender());
+		draw(m.stateRender());
 	}
-	window.write(board.stateRender());
+	draw(board.stateRender());
 	board.advanceMonsterTurn();
+}
+private void draw(String string) {
+	System.out.println(string);
 }
 
 public void handleDice(DiceSet die) {
@@ -164,8 +145,9 @@ public void handleDice(DiceSet die) {
 			curMon.gainVictory(GameConstants.POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
-		window.drawArea();
 	}
+	cleanUp();
+	
 }
 
 private boolean PromptToLeave(Monster hitMon) {
@@ -199,9 +181,7 @@ public Game (int num_of_monsters, String[] names, Window win) {
 	}
 	board = new TokyoArea(monsters);
 	window = win;
-	window.setMainButtonListener(rollButtonListener);
+	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
-	window.setTokyoArea(board);
-	window.drawArea();
 }
 }

@@ -44,6 +44,7 @@ public class TokyoPane {
 		for (int i=notTokyoMons.size(); i<6; i++){
 			notTokyoSpaces[i].setIcon(empty);
 		}
+		
 	}
 	public TokyoPane() {
 		tokyoAreaHolder = new JPanel();
@@ -71,8 +72,8 @@ public class TokyoPane {
 		iconMap.put("E", icon[4]);
 		iconMap.put("F", icon[5]);
 		}
-
-
+		
+		
 	public void setTokyoArea(TokyoArea tokyoArea) {
 		this.tokyoArea = tokyoArea;
 	}
