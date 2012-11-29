@@ -41,7 +41,7 @@ public class TokyoPane {
 			String name = notTokyoMons.get(i).getName();
 			notTokyoSpaces[i].setIcon(iconMap.get(name));
 		}
-		for (int i=notTokyoMons.size(); i<2; i++){
+		for (int i=notTokyoMons.size(); i<6; i++){
 			notTokyoSpaces[i].setIcon(empty);
 		}
 	}

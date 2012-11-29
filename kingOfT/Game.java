@@ -202,5 +202,6 @@ public Game (int num_of_monsters, String[] names, Window win) {
 	window.setMainButtonListener(rollButtonListener);
 	window.setDice(dice);
 	window.setTokyoArea(board);
+	window.drawArea();
 }
 }
