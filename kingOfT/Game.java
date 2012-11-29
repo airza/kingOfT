@@ -90,6 +90,7 @@ public void cleanUp() {
 		window.write("DRAW!");
 		System.exit(0);
 	}
+	window.drawArea();
 }
 public Boolean someRerolled(Boolean[] choices) {
 	//Find out if some dice were rerolled (The user doesn't have to keep rolling, otherwise
@@ -163,6 +164,7 @@ public void handleDice(DiceSet die) {
 			curMon.gainVictory(GameConstants.POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
+		window.drawArea();
 	}
 }
 
@@ -199,5 +201,6 @@ public Game (int num_of_monsters, String[] names, Window win) {
 	window = win;
 	window.setMainButtonListener(rollButtonListener);
 	window.setDice(dice);
+	window.setTokyoArea(board);
 }
 }
