@@ -1,5 +1,7 @@
 package kingOfT;
-
+/**
+ * @see the required variables used to controll the monsters  
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TokyoPane {
+	/**
+	 *  This class is used to controll the TokyoPane. 
+	 *  @see array icon for the pictures that are assosiated with each monster. 
+	 *  @see  the draw method. It uses the arraylist from the monsters class. In this arraylist it allows the Tokyo pane to "draw"
+	 *  who is in Tokyo or not. This class lets you see what you are doing and were you are at in refrence to the other monsters. 
+	 *  @see tokyoPane class. In this class it sets up the required "stuff"  like layout design and size and width. 
+	 *  
+	 */
 	private TokyoArea tokyoArea;
 	public JPanel tokyoAreaHolder;
 	public JPanel notTokyoAreaHolder;

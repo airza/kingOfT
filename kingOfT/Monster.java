@@ -2,14 +2,28 @@ package kingOfT;
 
 public class Monster{
 
-	
+	/**
+	 * @see the required variables used to controll the monsters "points" 
+	 */
 	private int health;
 	private int vp;
 	private int energy;
 	private String name;
 	//private ArrayList<cards> cards;
 	//kokokokokok
-	
+	/**
+	 * 
+	 * @param damage is sent by a class usually the Game 
+	 * @param health sends the health back to the game class as well as the MonsterGUI class 
+	 * @param heal is used if a monster gains health 
+	 * @param points is used when calculating the VP points 
+	 * @param energy is used when the monster gains energy 
+	 * @exception the health, VP, and Energy are all used and accessed by the MonsterGUI class 
+	 * @see the last four methods are used to see if a monster is dead and what to do if a monster is died; or
+	 * decrease the standard amount of damage. 
+	 * @exception the last method is used to return the VP 
+	 * 
+	 */
 	public void takeDamage (int damage) {
 		health -= damage;
 	}

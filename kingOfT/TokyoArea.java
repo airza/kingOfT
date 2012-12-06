@@ -1,8 +1,18 @@
 package kingOfT;
 
+/**
+ * @see the required variables used to controll the monsters  
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * This class is used to control the monsters behavior while they are in tokyo or while a monster is trying to get into tokyo. It uses @see arraylists. 
+ *  It is also used to move the monsters between different "areas" on the board. @exception the only two places where the monsters should be is in 
+ *  Tokyo or not. There is two strips of white that signify this. 
+ *  This class also is in controll of four player and six player logic controlling. @param mons 
+ *  
+ */
 public class TokyoArea {
 private Monster tokyoMon = null;
 private Monster tokyoBayMon = null;

@@ -3,7 +3,8 @@ package kingOfT;
 public class MainLoop {
 
 	/**
-	 * @param args
+	 * @param args starts the main loop for the game with monster "names" as A,B,C,D,E,F
+	 * Initates the game method and draws the game board and starts the GUI 
 	 */
 	public static void main(String[] args) {
 		//there should be some code here to handle beginning a new game, but there isn't
