@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 
 public class TokyoPane {
 	/**
-	 *  This class is used to controll the TokyoPane. 
+	 * 
+	 *  This class is used to control the TokyoPane. 
 	 *  @see array icon for the pictures that are assosiated with each monster. 
 	 *  @see  the draw method. It uses the arraylist from the monsters class. In this arraylist it allows the Tokyo pane to "draw"
 	 *  who is in Tokyo or not. This class lets you see what you are doing and were you are at in refrence to the other monsters. 
@@ -22,7 +23,7 @@ public class TokyoPane {
 	 */
 	private TokyoArea tokyoArea;
 	public JPanel tokyoAreaHolder;
-	public JPanel notTokyoAreaHolder;
+		
 	private JLabel[] tokyoSpaces;
 	private JLabel[] notTokyoSpaces;
 	final ImageIcon icon[] = {
