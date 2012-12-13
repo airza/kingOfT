@@ -18,7 +18,7 @@ public class Game {
 	private Window window;
 	public DiceSet dice;
 	public MonsterPane monstersPane= new MonsterPane();
-	public MonsterGUI monsGUI = new MonsterGUI();
+	public String monsterInfo = "hi";
 	
 	public RollButtonListener rollButtonListener = new RollButtonListener();
 	public OkButtonListener okButtonListener = new OkButtonListener();
@@ -119,12 +119,16 @@ public void startTurn() {
 public void endTurn() {
 	for (Monster m : board.getMonsters()) {
 		window.write(m.stateRender());
+		monsterInfo=m.stateRender();
+		monstersPane.resetValues(m.stateRender());
 	}
-	//monsGUI.getValues();
-	monstersPane.setLabels();
+	
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
 	
+}
+public String returnMonsterInfo(){
+	return monsterInfo;
 }
 
 public void handleDice(DiceSet die) {

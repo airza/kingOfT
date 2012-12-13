@@ -29,7 +29,7 @@ public class TokyoPane {
 	private JLabel[] tokyoSpaces;
 	private JLabel[] notTokyoSpaces;
 	private JLabel monsterInfoSpaces;
-	private MonsterGUI mons;
+	private MonsterPane mons;
 	
 	final ImageIcon icon[] = {
 			new ImageIcon("Pictures/m1.png", "Monster 1"),

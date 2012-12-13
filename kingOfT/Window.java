@@ -28,7 +28,7 @@ public class Window {
 	MonsterPane monster;
 	JTextArea log;
 	TokyoPane tokyoPane;
-	
+	public String monsterInfo;
 	public void drawDice(){
 		dicePane.drawDice();
 		/** 
@@ -60,7 +60,13 @@ public class Window {
 		/** 
 		 * Prints out "text" in the command line 
 		 */
+		monsterInfo = text;
 		System.out.println(text);
+		
+	}
+	public String monsterInfo(){
+		System.out.println(monsterInfo);
+		return monsterInfo;
 	}
 	public void setTokyoArea(TokyoArea tokyoArea){
 		tokyoPane.setTokyoArea(tokyoArea);

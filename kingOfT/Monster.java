@@ -52,7 +52,7 @@ public class Monster{
 	public Monster(String itsName) {
 		name = itsName;
 		energy = 0;
-		health = 10;
+		health = 100;
 		vp = 0;
 	}
 	public boolean isDead() {

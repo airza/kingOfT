@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 	public class MonsterGUI {
 		
-		Monster mons =  new Monster("A");
+		Monster mons =  new Monster(" ");
 		MonsterPane panes = new MonsterPane();
 		private String store= "";
 		private String starting;
@@ -63,7 +63,7 @@ import javax.swing.JPanel;
 					store=" "+mons.getEnergy();
 				}
 				
-				panes.mons(store);
+			
 			}
 				
 		}
