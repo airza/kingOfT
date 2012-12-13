@@ -24,6 +24,8 @@ public class Monster{
 	 * @exception the last method is used to return the VP 
 	 * 
 	 */
+	
+	
 	public void takeDamage (int damage) {
 		health -= damage;
 	}
