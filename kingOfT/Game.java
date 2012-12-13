@@ -17,6 +17,9 @@ public class Game {
 	private TokyoArea board;
 	private Window window;
 	public DiceSet dice;
+	public MonsterPane monstersPane= new MonsterPane();
+	public MonsterGUI monsGUI = new MonsterGUI();
+	
 	public RollButtonListener rollButtonListener = new RollButtonListener();
 	public OkButtonListener okButtonListener = new OkButtonListener();
 	class RollButtonListener implements ActionListener {
@@ -111,13 +114,17 @@ public void startTurn() {
 		window.write(board.getCurMon().getName() + " gets "+GameConstants.POINTS_FOR_TOKYO_START + " points for keeping tokyo!");
 		cleanUp();
 	}
+	
 }
 public void endTurn() {
 	for (Monster m : board.getMonsters()) {
 		window.write(m.stateRender());
 	}
+	//monsGUI.getValues();
+	monstersPane.setLabels();
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
+	
 }
 
 public void handleDice(DiceSet die) {

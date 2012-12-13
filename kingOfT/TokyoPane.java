@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,8 +25,12 @@ public class TokyoPane {
 	private TokyoArea tokyoArea;
 	public JPanel tokyoAreaHolder;
 	public JPanel notTokyoAreaHolder;
+	public JPanel monsterInfo;
 	private JLabel[] tokyoSpaces;
 	private JLabel[] notTokyoSpaces;
+	private JLabel monsterInfoSpaces;
+	private MonsterGUI mons;
+	
 	final ImageIcon icon[] = {
 			new ImageIcon("Pictures/m1.png", "Monster 1"),
 			new ImageIcon("Pictures/m2.png", "Monster 2"),
@@ -54,10 +60,12 @@ public class TokyoPane {
 		for (int i=notTokyoMons.size(); i<6; i++){
 			notTokyoSpaces[i].setIcon(empty);
 		}
+		
 	}
 	public TokyoPane() {
 		tokyoAreaHolder = new JPanel();
 		tokyoSpaces = new JLabel[2];
+		monsterInfo = new JPanel();
 		
 		for (int i = 0; i<2; i++) {
 			tokyoSpaces[i] = new JLabel("",empty, JLabel.CENTER);
@@ -69,11 +77,14 @@ public class TokyoPane {
 			notTokyoSpaces[i] = new JLabel("",empty, JLabel.CENTER);
 			notTokyoAreaHolder.add(notTokyoSpaces[i]);
 		}
+		
 		BoxLayout tokyoBox = new BoxLayout(tokyoAreaHolder,BoxLayout.X_AXIS);
 		tokyoAreaHolder.setLayout(tokyoBox);
 		
 		BoxLayout notTokyoBox = new BoxLayout(notTokyoAreaHolder,BoxLayout.X_AXIS);
 		notTokyoAreaHolder.setLayout(notTokyoBox);
+
+		
 		iconMap.put("A", icon[0]);
 		iconMap.put("B", icon[1]);
 		iconMap.put("C", icon[2]);
@@ -83,9 +94,15 @@ public class TokyoPane {
 		}
 
 
+	 {
+		// TODO Auto-generated method stub
+		
+	}
 	public void setTokyoArea(TokyoArea tokyoArea) {
 		this.tokyoArea = tokyoArea;
 	}
+	
+	
 	
 	
 }

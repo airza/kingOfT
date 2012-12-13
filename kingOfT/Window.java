@@ -1,6 +1,7 @@
 package kingOfT;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class Window {
 	 */ 
 	JButton[] diceButtons;
 	DicePane dicePane;
+	MonsterPane monster;
 	JTextArea log;
 	TokyoPane tokyoPane;
 	
@@ -49,6 +51,7 @@ public class Window {
 	public Boolean[] getUnselectedDice() {
 		return dicePane.checkToggleState(false);
 		/** 
+		 * 
 		 * Calls to see if the dice are selected and then returns the boolean logic of false 
 		 * threw the checkToggleState method in dicePane
 		 */
@@ -69,18 +72,22 @@ public class Window {
 	 * Sets all the nessesary window stuff including the title bar and layots from the different classes. 
 	 */
 	public Window() {
+	monster = new MonsterPane();
 	JFrame frame = new JFrame("HI");
 	JPanel layout = new JPanel();
 	dicePane = new DicePane();
 	layout.add(dicePane.getPanel());
+	layout.add(monster.getPanel());
 	tokyoPane = new TokyoPane();
 	layout.add(tokyoPane.notTokyoAreaHolder);
 	layout.add(tokyoPane.tokyoAreaHolder);
-	BoxLayout topLayout = new BoxLayout(layout,BoxLayout.X_AXIS);
+	layout.add(tokyoPane.monsterInfo);
 	frame.add(layout);
+	//frame.add(monster.getPanel());
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
+	
 	} 
 	
 	public void setMainButtonListener(ActionListener l) {

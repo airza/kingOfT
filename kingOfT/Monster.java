@@ -40,6 +40,9 @@ public class Monster{
 	public void gainEnergy (int en) { 
 		energy += en;
 	}
+	public int getEnergy(){
+		return energy;
+	}
 	
 	public String getName() {
 		return name;
