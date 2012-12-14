@@ -1,6 +1,5 @@
 package kingOfT;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.Array;
@@ -12,17 +11,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MonsterPane {
+	public Monster mons = new Monster("A");
+	public JPanel panel= new JPanel();
+	int intStart =0;
+	JLabel[] JLabels = new JLabel[6];
 	
-	public JPanel panel;
-	public int intStart =0;
-
-	 
 	Game game;
 	String test= "this shouldnt happen";
+	int idk=0;
 	
 	public MonsterPane(){		
 		for(int i = 0; i < 6; i++) {
-             
+			JLabels[i] = new JLabel();
+          
          }
 	
 		
@@ -37,45 +38,31 @@ public class MonsterPane {
 		return panel;
 	}
 	public void setPanel(String t){	
+		idk++;
 		
-		panel = new JPanel();
-		System.out.println(t);
-		
-		JLabel[] JLabels = new JLabel[6];
-		
-		for(int i = 0; i<6; i++)
-			JLabels[i] = new JLabel();
-		
+
 		GridLayout box = new GridLayout(6,1);
 		panel.setLayout(box);
 		panel.setVisible(true);
 		panel.setMinimumSize(new Dimension(100,500));
 		
-		for(int i = 0; i < 6; i++) {
-			JLabels[i].setText(t);
-			panel.add(JLabels[i]);
-		}
 		
+		
+		for(int i = 0; i < 6; i++) {
+			panel.add(JLabels[i]);
+			idk++;
+			System.out.println(t + " " + i+ " " + idk);JLabels[i].setText(t);
+				
+			if(t.compareTo("this shouldnt happen")==0&&idk<4){
+				JLabels[i].setText("Testing asoldfjasdlkfj ");
+			}
+		}
 		
 	    //panel.setLocation(600, 400);
 		
 	}
-	public JPanel resetValues(String t){
-		System.out.println(t);
-		test=t;
+	public JPanel updateValues(){
 		
-		
-		//panel.repaint();
-		
-		
-		
-		//for(int i =0; i<6; i++){d
-			//panel.remove(JLabels[i]);
-			//panel.add(JLabels[i]);
-			//this.JLabels[i]= new JLabel();
-			//this.JLabels[i].setText("help me");
-			
-		//}
 		return panel;
 	}
 }

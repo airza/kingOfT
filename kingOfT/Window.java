@@ -31,17 +31,23 @@ public class Window {
 	public String monsterInfo;
 	public void drawDice(){
 		dicePane.drawDice();
+		monster.updateValues();
 		/** 
 	 * Calls the drawDice method from the dicePane Class 
 	 */
 	}
+	
 	public void drawArea(){
 		tokyoPane.draw();
+		
 		/** 
 		 * calls the draw method from the tokyoPane
 		 */
 	}
 	
+	public JPanel monsterInfos(){
+		return monster.updateValues();
+	}
 	public void setDice(DiceSet dice) {
 		dicePane.setDice(dice);	
 		/** 
@@ -60,7 +66,7 @@ public class Window {
 		/** 
 		 * Prints out "text" in the command line 
 		 */
-		monsterInfo = text;
+		//monsterInfo = text;
 		System.out.println(text);
 		
 	}

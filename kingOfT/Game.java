@@ -126,6 +126,7 @@ public void endTurn() {
 	
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
+	monstersPane.updateValues();
 	
 }
 public String returnMonsterInfo(){
@@ -216,5 +217,6 @@ public Game (int num_of_monsters, String[] names, Window win) {
 	window.setDice(dice);
 	window.setTokyoArea(board);
 	window.drawArea();
+	window.monsterInfos();
 }
 }
