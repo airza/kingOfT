@@ -13,11 +13,11 @@ public class Monster{
 	//kokokokokok
 	/**
 	 * 
-	 * @param damage is sent by a class usually the Game 
-	 * @param health sends the health back to the game class as well as the MonsterGUI class 
-	 * @param heal is used if a monster gains health 
-	 * @param points is used when calculating the VP points 
-	 * @param energy is used when the monster gains energy 
+	 * see damage is sent by a class usually the Game 
+	 *  health sends the health back to the game class as well as the MonsterGUI class 
+	 *  heal is used if a monster gains health 
+	 *  points is used when calculating the VP points 
+	 *  energy is used when the monster gains energy 
 	 * @exception the health, VP, and Energy are all used and accessed by the MonsterGUI class 
 	 * @see the last four methods are used to see if a monster is dead and what to do if a monster is died; or
 	 * decrease the standard amount of damage. 
@@ -52,7 +52,7 @@ public class Monster{
 	public Monster(String itsName) {
 		name = itsName;
 		energy = 0;
-		health = 100;
+		health = 10;
 		vp = 0;
 	}
 	public boolean isDead() {

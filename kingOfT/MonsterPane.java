@@ -16,53 +16,49 @@ public class MonsterPane {
 	int intStart =0;
 	JLabel[] JLabels = new JLabel[6];
 	
-	Game game;
-	String test= "this shouldnt happen";
+	public String test ="Testing 123"; // "this shouldnt happen under public class monsterpane";
 	int idk=0;
-	// lkadsfjads;lfj a;lfkjads;lfka;lkadj;l
-	public MonsterPane(){		
+		
+	public MonsterPane(){
 		for(int i = 0; i < 6; i++) {
-			JLabels[i] = new JLabel();
-          
-         }
-	
-		
-		
-		
+			JLabels[i] = new JLabel();          
+         }	
+	}
+	public void getInformation(String t){
+		test = t;
+		//System.out.println("MonsterPane.getInformation " + test);
 	}
 	public JPanel getPanel() {
 		/** 
 		 * Returns JPanel  to a class
 		 */
-		setPanel(test);
+		//System.out.println("MonsterPane.getPanel " + test);
+		//setPanel();
 		return panel;
 	}
-	public void setPanel(String t){	
-		idk++;
+	public void setPanel(){	
 		
-
-		GridLayout box = new GridLayout(6,1);
-		panel.setLayout(box);
-		panel.setVisible(true);
-		panel.setMinimumSize(new Dimension(100,500));
-		
-		
-		
+		//System.out.println("in setpanel monster pane " + test);
+		 
+	
 		for(int i = 0; i < 6; i++) {
+			
 			panel.add(JLabels[i]);
-			idk++;
-			System.out.println(t + " " + i+ " " + idk);JLabels[i].setText(t);
-				
-			if(t.compareTo("this shouldnt happen")==0&&idk<4){
-				JLabels[i].setText("Testing asoldfjasdlkfj ");
+			
+			//System.out.println(test + " " + i);
+			JLabels[i].setText(test);
+			
 			}
-		}
+			GridLayout box = new GridLayout(6,1);
+			panel.setLayout(box);
+			panel.setVisible(true);
+			panel.setMinimumSize(new Dimension(100,500));		
+			
 		
-	    //panel.setLocation(600, 400);
 		
 	}
 	public JPanel updateValues(){
-		
+		System.out.println("In the updateValues method of MonsterPane");
 		return panel;
 	}
 }

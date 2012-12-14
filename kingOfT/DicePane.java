@@ -22,6 +22,7 @@ public class DicePane {
 	private JButton[] diceButtons;
 	private JButton okButton;
 	private DiceToggleListener toggle = new DiceToggleListener();
+	public MonsterPane mons = new MonsterPane(); //asdfkadsjf
 	
 	class DiceToggleListener implements ActionListener {
 		/** 
@@ -131,6 +132,7 @@ public class DicePane {
 	panel = new JPanel();
 	diceButtons = new JButton[GameConstants.DICE_NUM];
 	okButton  = new JButton("ROLL!");
+	mons.updateValues();//wert
 	for (Integer i = 0; i<GameConstants.DICE_NUM; i++) {
 		diceButtons[i] = makeButton(i);
 		panel.add(diceButtons[i]);

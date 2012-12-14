@@ -34,8 +34,8 @@ public class Game {
 				parent.setText("OK!");
 				parent.removeActionListener(this);
 				parent.addActionListener(okButtonListener);
+				
 			}
-
 	    }
 	}
 	class OkButtonListener implements ActionListener {
@@ -49,7 +49,7 @@ public class Game {
 
 	    }
 	}
-public void changeState(int state){
+	public void changeState(int state){
 	switch(state){
 	case STATE_DONE_ROLLING:
 		handleTurn();
@@ -60,15 +60,16 @@ public void changeState(int state){
 	case TURN_BEGIN:
 		startTurn();
 		window.drawDice();
+		//monstersPane.setPanel(monsterInfo);
 		break;
 	}	
 }
-private void handleTurn() {
+	private void handleTurn() {
 	handleDice(dice);
 	cleanUp();
 	
 }
-public void cleanUp() {
+	public void cleanUp() {
 	ArrayList<Monster> killed = new ArrayList<Monster>();
 	ArrayList<Monster> winners = new ArrayList<Monster>();
 	for(Monster m: board.getMonsters()){
@@ -96,7 +97,7 @@ public void cleanUp() {
 	}
 	window.drawArea();
 }
-public Boolean someRerolled(Boolean[] choices) {
+	public Boolean someRerolled(Boolean[] choices) {
 	//Find out if some dice were rerolled (The user doesn't have to keep rolling, otherwise
 	Boolean someTrue = false;
 	for (Boolean c :choices) {
@@ -105,7 +106,7 @@ public Boolean someRerolled(Boolean[] choices) {
 	return someTrue;
 }
 
-public void startTurn() {
+	public void startTurn() {
 	
 	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
@@ -117,23 +118,26 @@ public void startTurn() {
 	}
 	
 }
-public void endTurn() {
+	public void endTurn() {
 	for (Monster m : board.getMonsters()) {
 		window.write(m.stateRender());
 		monsterInfo=m.stateRender();
-		monstersPane.setPanel(monsterInfo);
+		System.out.println("game.endTurn for " + monsterInfo);
+		monstersPane.getInformation(monsterInfo);
+		//monstersPane.getPanel();
+		
 	}
 	
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
-	monstersPane.updateValues();
 	
+	System.out.println("in end turn NOT UNDER FOR LOOP");
+	//ASDFASDF
 }
-public String returnMonsterInfo(){
+	public String returnMonsterInfo(){
 	return monsterInfo;
 }
-
-public void handleDice(DiceSet die) {
+	public void handleDice(DiceSet die) {
 	Monster curMon = board.getCurMon();
 	int energy = die.countState(0);
 	int claws = die.countState(4);
@@ -181,17 +185,14 @@ public void handleDice(DiceSet die) {
 		window.drawArea();
 	}
 }
-
-private boolean PromptToLeave(Monster hitMon) {
+	private boolean PromptToLeave(Monster hitMon) {
 	if (hitMon.getHealth() <= 0) {
 		return true; //Asking dead monsters to leave is impolite
 	} else
 		return Window.askYNQuestion(hitMon.getName()+": Do you want to leave Tokyo?");
 
 }
-
-
-public Boolean[] chooseDice(int diceNum){
+	public Boolean[] chooseDice(int diceNum){
 	Boolean[] responses = new Boolean[diceNum];
 	Scanner scansworth = new Scanner(System.in);
     System.out.printf("Enter the dice to reroll: (1-%d) or Q to stop rolling\n", diceNum);
@@ -205,18 +206,19 @@ public Boolean[] chooseDice(int diceNum){
     }
 	return responses;
 }
-public Game (int num_of_monsters, String[] names, Window win) {
+	public Game (int num_of_monsters, String[] names, Window win) {
 	ArrayList<Monster> monsters = new ArrayList<Monster>(num_of_monsters);
 	for (int i= 0; i <num_of_monsters; i++){
 		Monster mon = new Monster(names[i]);
 		monsters.add(mon);
 	}
+	monstersPane.getInformation(monsterInfo);
 	board = new TokyoArea(monsters);
 	window = win;
+	
 	window.setMainButtonListener(rollButtonListener);
 	window.setDice(dice);
 	window.setTokyoArea(board);
-	window.drawArea();
-	window.monsterInfos();
+	window.drawArea();	
 }
 }

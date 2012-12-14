@@ -31,7 +31,7 @@ public class Window {
 	public String monsterInfo;
 	public void drawDice(){
 		dicePane.drawDice();
-		monster.updateValues();
+		
 		/** 
 	 * Calls the drawDice method from the dicePane Class 
 	 */
@@ -84,23 +84,22 @@ public class Window {
 	 * Sets all the nessesary window stuff including the title bar and layots from the different classes. 
 	 */
 	public Window() {
-	monster = new MonsterPane();
-	JFrame frame = new JFrame("HI");
+	final JFrame frame = new JFrame("King Of Toyko");
 	JPanel layout = new JPanel();
 	dicePane = new DicePane();
 	layout.add(dicePane.getPanel());
+	monster = new MonsterPane();
 	layout.add(monster.getPanel());
 	tokyoPane = new TokyoPane();
 	layout.add(tokyoPane.notTokyoAreaHolder);
 	layout.add(tokyoPane.tokyoAreaHolder);
-	layout.add(tokyoPane.monsterInfo);
+	// layout.add(tokyoPane.monsterInfo);
 	frame.add(layout);
 	//frame.add(monster.getPanel());
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
 	frame.repaint();
-	
 	} 
 	
 	public void setMainButtonListener(ActionListener l) {

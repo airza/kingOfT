@@ -65,7 +65,6 @@ public class TokyoPane {
 	public TokyoPane() {
 		tokyoAreaHolder = new JPanel();
 		tokyoSpaces = new JLabel[2];
-		monsterInfo = new JPanel();
 		
 		for (int i = 0; i<2; i++) {
 			tokyoSpaces[i] = new JLabel("",empty, JLabel.CENTER);
