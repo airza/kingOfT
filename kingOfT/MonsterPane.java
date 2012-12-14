@@ -15,24 +15,14 @@ public class MonsterPane {
 	
 	public JPanel panel;
 	public int intStart =0;
-	//public JButton test = new JButton();
-	
-	//static MonsterGUI mons = new MonsterGUI();
-	
-	//Monster mon = new Monster("");
-	String[] anArray = new String[24];
-	JLabel[] JLabels = new JLabel[24];
+
+	 
 	Game game;
 	String test= "this shouldnt happen";
 	
-	public MonsterPane(){
-		
+	public MonsterPane(){		
 		for(int i = 0; i < 6; i++) {
-             JLabels[i] = new JLabel();
-             anArray[i] = new String(" ");
-            JLabels[i].setVisible(true);
-            JLabels[i].setText(anArray[i]);
-            
+             
          }
 	
 		
@@ -43,39 +33,48 @@ public class MonsterPane {
 		/** 
 		 * Returns JPanel  to a class
 		 */
-		
-		setPanel();
-		
-		
+		setPanel(test);
 		return panel;
 	}
-	
-	
-	public void setPanel(){	
+	public void setPanel(String t){	
+		//if(t!="this shouldnt happen")
+			//panel.removeAll();
 		
 		panel = new JPanel();
-		
-		
-		
-		
-		
-		GridLayout box = new GridLayout(6,1);
+		System.out.println(t);
+		JLabel[] JLabels = new JLabel[6];
+		for(int i = 0; i<6; i++)
+			JLabels[i] = new JLabel();
+		GridLayout box = new GridLayout(7,1);
 		panel.setLayout(box);
 		panel.setVisible(true);
 		panel.setMinimumSize(new Dimension(100,500));
 		for(int i = 0; i < 6; i++) {
-			JLabels[i].setText(i+"");
+			JLabels[i].setText(t);
 			panel.add(JLabels[i]);
 		}
-	    panel.setLocation(600, 400);
+		
+		
+	    //panel.setLocation(600, 400);
 		
 	}
-	public void resetValues(String t){
+	public JPanel resetValues(String t){
 		System.out.println(t);
 		test=t;
-			JLabels[1].setText(t);
-			
 		
+		
+		//panel.repaint();
+		
+		
+		
+		//for(int i =0; i<6; i++){d
+			//panel.remove(JLabels[i]);
+			//panel.add(JLabels[i]);
+			//this.JLabels[i]= new JLabel();
+			//this.JLabels[i].setText("help me");
+			
+		//}
+		return panel;
 	}
 }
 	

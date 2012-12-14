@@ -106,6 +106,7 @@ public Boolean someRerolled(Boolean[] choices) {
 }
 
 public void startTurn() {
+	
 	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
 	window.write(board.getCurMon().getName() + "'S TURN");
@@ -120,7 +121,7 @@ public void endTurn() {
 	for (Monster m : board.getMonsters()) {
 		window.write(m.stateRender());
 		monsterInfo=m.stateRender();
-		monstersPane.resetValues(m.stateRender());
+		monstersPane.setPanel(monsterInfo);
 	}
 	
 	window.write(board.stateRender());

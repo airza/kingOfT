@@ -93,6 +93,7 @@ public class Window {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
+	frame.repaint();
 	
 	} 
 	
