@@ -19,7 +19,7 @@ public class MonsterPane {
 	Game game;
 	String test= "this shouldnt happen";
 	int idk=0;
-	
+	// lkadsfjads;lfj a;lfkjads;lfka;lkadj;l
 	public MonsterPane(){		
 		for(int i = 0; i < 6; i++) {
 			JLabels[i] = new JLabel();
