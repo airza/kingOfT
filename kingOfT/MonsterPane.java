@@ -37,18 +37,20 @@ public class MonsterPane {
 		return panel;
 	}
 	public void setPanel(String t){	
-		//if(t!="this shouldnt happen")
-			//panel.removeAll();
 		
 		panel = new JPanel();
 		System.out.println(t);
+		
 		JLabel[] JLabels = new JLabel[6];
+		
 		for(int i = 0; i<6; i++)
 			JLabels[i] = new JLabel();
-		GridLayout box = new GridLayout(7,1);
+		
+		GridLayout box = new GridLayout(6,1);
 		panel.setLayout(box);
 		panel.setVisible(true);
 		panel.setMinimumSize(new Dimension(100,500));
+		
 		for(int i = 0; i < 6; i++) {
 			JLabels[i].setText(t);
 			panel.add(JLabels[i]);

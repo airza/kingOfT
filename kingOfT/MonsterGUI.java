@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 
 	public class MonsterGUI {
-		
+		/*
 		Monster mons =  new Monster(" ");
 		MonsterPane panes = new MonsterPane();
 		private String store= "";
@@ -70,7 +70,7 @@ import javax.swing.JPanel;
 		
 		public int intStart(){
 			return intStart;
-		}
+		} */
 		
 			
 		
