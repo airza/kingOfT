@@ -132,7 +132,7 @@ public class DicePane {
 	panel = new JPanel();
 	diceButtons = new JButton[GameConstants.DICE_NUM];
 	okButton  = new JButton("ROLL!");
-	mons.updateValues();//wert
+	mons.getPanel();//wert
 	for (Integer i = 0; i<GameConstants.DICE_NUM; i++) {
 		diceButtons[i] = makeButton(i);
 		panel.add(diceButtons[i]);

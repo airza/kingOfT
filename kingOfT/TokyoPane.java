@@ -30,6 +30,7 @@ public class TokyoPane {
 	private JLabel[] notTokyoSpaces;
 	private JLabel monsterInfoSpaces;
 	private MonsterPane mons;
+	private int k = 0;
 	
 	final ImageIcon icon[] = {
 			new ImageIcon("Pictures/m1.png", "Monster 1"),
@@ -67,8 +68,9 @@ public class TokyoPane {
 		tokyoSpaces = new JLabel[2];
 		
 		for (int i = 0; i<2; i++) {
-			tokyoSpaces[i] = new JLabel("",empty, JLabel.CENTER);
+			tokyoSpaces[i] = new JLabel(("") ,empty, JLabel.CENTER);
 			tokyoAreaHolder.add(tokyoSpaces[i]);
+			
 		}
 		notTokyoSpaces = new JLabel[6];
 		notTokyoAreaHolder = new JPanel();

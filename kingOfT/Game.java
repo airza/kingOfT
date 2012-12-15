@@ -28,13 +28,14 @@ public class Game {
 			Boolean[] rolls = window.getUnselectedDice();
 			dice.rollDice(rolls);
 			window.drawDice();
+			
 			if(dice.getRollsLeft() == 0 || !someRerolled(rolls)) {
 				changeState(STATE_DONE_ROLLING);
 				JButton parent = (JButton) e.getSource();
 				parent.setText("OK!");
 				parent.removeActionListener(this);
 				parent.addActionListener(okButtonListener);
-				
+				monstersPane.setPanel();
 			}
 	    }
 	}
@@ -46,27 +47,32 @@ public class Game {
 			parent.setText("ROLL!");
 			parent.addActionListener(rollButtonListener);
 			changeState(TURN_BEGIN);
-
+			//monstersPane.setPanel();
 	    }
 	}
 	public void changeState(int state){
 	switch(state){
 	case STATE_DONE_ROLLING:
 		handleTurn();
+		monstersPane.setPanel();
 		break;
 	case TURN_OVER:
 		endTurn();
+		monstersPane.setPanel();
 		break;
 	case TURN_BEGIN:
 		startTurn();
 		window.drawDice();
-		//monstersPane.setPanel(monsterInfo);
+		monstersPane.setPanel();
 		break;
 	}	
 }
 	private void handleTurn() {
+	
+	
+	
 	handleDice(dice);
-	cleanUp();
+	cleanUp();	
 	
 }
 	public void cleanUp() {
@@ -105,9 +111,8 @@ public class Game {
 	}
 	return someTrue;
 }
-
 	public void startTurn() {
-	
+		monstersPane.setPanel();
 	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
 	window.write(board.getCurMon().getName() + "'S TURN");
@@ -124,13 +129,13 @@ public class Game {
 		monsterInfo=m.stateRender();
 		System.out.println("game.endTurn for " + monsterInfo);
 		monstersPane.getInformation(monsterInfo);
-		//monstersPane.getPanel();
+		monstersPane.setPanel();
 		
 	}
 	
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
-	
+	monstersPane.setPanel();
 	System.out.println("in end turn NOT UNDER FOR LOOP");
 	//ASDFASDF
 }
@@ -182,7 +187,10 @@ public class Game {
 			curMon.gainVictory(GameConstants.POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
+		
+		monstersPane.setPanel();
 		window.drawArea();
+		
 	}
 }
 	private boolean PromptToLeave(Monster hitMon) {

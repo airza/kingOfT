@@ -12,12 +12,12 @@ public class MainLoop {
 		final String[] NAMES = {"A","B","C","D","E","F"};
 		
 		Window win  = new Window();
-		MonsterPane mons = new MonsterPane();
-		String monsInfo = " ";
+		//MonsterPane mons = new MonsterPane();
+		//String monsInfo = "Main ";
 		Game game = new Game(PLAYER_NUM,NAMES, win);
 		game.startTurn();
 		win.drawDice();
-		monsInfo=game.returnMonsterInfo();
+		//onsInfo=game.returnMonsterInfo();
 		
 		
 	}

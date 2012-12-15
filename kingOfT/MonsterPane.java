@@ -11,17 +11,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MonsterPane {
-	public Monster mons = new Monster("A");
+	/*public Monster monsA = new Monster("A");
+	public Monster monsB = new Monster("B");
+	public Monster monsC = new Monster("C");
+	public Monster monsD = new Monster("D");
+	public Monster monsE = new Monster("E");
+	public Monster monsF = new Monster("F"); */
 	public JPanel panel= new JPanel();
+	
 	int intStart =0;
 	JLabel[] JLabels = new JLabel[6];
-	
 	public String test ="Testing 123"; // "this shouldnt happen under public class monsterpane";
 	int idk=0;
+	
+	
 		
 	public MonsterPane(){
 		for(int i = 0; i < 6; i++) {
-			JLabels[i] = new JLabel();          
+			JLabels[i] = new JLabel();  
+			JLabels[i].setText("");
          }	
 	}
 	public void getInformation(String t){
@@ -33,34 +41,31 @@ public class MonsterPane {
 		 * Returns JPanel  to a class
 		 */
 		//System.out.println("MonsterPane.getPanel " + test);
-		//setPanel();
+		GridLayout box = new GridLayout(6,1);
+		panel.setLayout(box);
+		panel.setVisible(true);
+		panel.setMinimumSize(new Dimension(100,500));		
+		for(int i = 0; i<6; i++){
+			panel.add(JLabels[i]);
+		}
+		
+		setPanel();
+		
 		return panel;
 	}
 	public void setPanel(){	
-		
-		//System.out.println("in setpanel monster pane " + test);
-		 
-	
-		for(int i = 0; i < 6; i++) {
+		//Window win = new Window();
 			
-			panel.add(JLabels[i]);
-			
-			//System.out.println(test + " " + i);
-			JLabels[i].setText(test);
-			
+			for(int i = 0; i<6;i++){
+				JLabels[i].setText(test);
 			}
-			GridLayout box = new GridLayout(6,1);
-			panel.setLayout(box);
-			panel.setVisible(true);
-			panel.setMinimumSize(new Dimension(100,500));		
+			
+			
 			
 		
 		
 	}
-	public JPanel updateValues(){
-		System.out.println("In the updateValues method of MonsterPane");
-		return panel;
-	}
+	
 }
 	
 	

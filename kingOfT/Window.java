@@ -26,6 +26,7 @@ public class Window {
 	JButton[] diceButtons;
 	DicePane dicePane;
 	MonsterPane monster;
+	
 	JTextArea log;
 	TokyoPane tokyoPane;
 	public String monsterInfo;
@@ -46,7 +47,7 @@ public class Window {
 	}
 	
 	public JPanel monsterInfos(){
-		return monster.updateValues();
+		return monster.getPanel();
 	}
 	public void setDice(DiceSet dice) {
 		dicePane.setDice(dice);	
@@ -93,9 +94,7 @@ public class Window {
 	tokyoPane = new TokyoPane();
 	layout.add(tokyoPane.notTokyoAreaHolder);
 	layout.add(tokyoPane.tokyoAreaHolder);
-	// layout.add(tokyoPane.monsterInfo);
 	frame.add(layout);
-	//frame.add(monster.getPanel());
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);
 	frame.setMinimumSize(new Dimension(800,600));
@@ -105,6 +104,7 @@ public class Window {
 	public void setMainButtonListener(ActionListener l) {
 		dicePane.getOkButton().addActionListener(l);
 	}
+	
 	/** 
 	 * "turns on" main button listener  threw the dice pane class dicePane 
 	 */
