@@ -17,8 +17,9 @@ public class Game {
 	private TokyoArea board;
 	private Window window;
 	public DiceSet dice;
-	public MonsterPane monstersPane= new MonsterPane();
-	public String monsterInfo = "hi";
+	private MonsterPane monstersPane= new MonsterPane();
+	private String monsterInfo = "";
+	private String monsterName = "";
 	
 	public RollButtonListener rollButtonListener = new RollButtonListener();
 	public OkButtonListener okButtonListener = new OkButtonListener();
@@ -125,9 +126,10 @@ public class Game {
 		m.getName();
 		window.write(m.stateRender());
 		monsterInfo=m.stateRender();
-		System.out.println("game.endTurn for " + monsterInfo);
-		monstersPane.draw(monsterInfo);
-		window.monster.draw(monsterInfo);
+		monsterName = m.getName();
+		//System.out.println("game.endTurn for " + monsterInfo);
+		monstersPane.draw(monsterInfo, monsterName);
+		window.monster.draw(monsterInfo, monsterName);
 		
 	}
 	

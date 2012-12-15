@@ -65,25 +65,25 @@ public class MonsterPane {
 				JLabels[i].setText(test);
 			}
 			
-			draw(test);
+			draw(test, "x");
 			
 		
 		 
 	}
-	public void draw(String test) {
+	public void draw(String test, String name) {
 		if(intStart==6)
 			intStart=0;
-			if(intStart==0)
+			if(name.compareToIgnoreCase("A")==0)
 				JLabels[0].setText(test);
-			if(intStart==1)
+			if(name.compareToIgnoreCase("B")==0)
 				JLabels[1].setText(test);
-			if(intStart==2)
+			if(name.compareToIgnoreCase("C")==0)
 				JLabels[2].setText(test);
-			if(intStart==3)
+			if(name.compareToIgnoreCase("D")==0)
 				JLabels[3].setText(test);
-			if(intStart==4)
+			if(name.compareToIgnoreCase("E")==0)
 				JLabels[4].setText(test);
-			if(intStart==5)
+			if(name.compareToIgnoreCase("F")==0)
 				JLabels[5].setText(test);
 			if(intStart==6)
 				JLabels[0].setText("THIS SHOULDN'T HAPPEN. RESET intStart");
