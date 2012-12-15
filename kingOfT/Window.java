@@ -46,8 +46,8 @@ public class Window {
 		 */
 	}
 	
-	public JPanel monsterInfos(){
-		return monster.getPanel();
+	public void drawMonster(){
+		
 	}
 	public void setDice(DiceSet dice) {
 		dicePane.setDice(dice);	

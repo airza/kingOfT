@@ -35,7 +35,6 @@ public class Game {
 				parent.setText("OK!");
 				parent.removeActionListener(this);
 				parent.addActionListener(okButtonListener);
-				monstersPane.setPanel();
 			}
 	    }
 	}
@@ -47,23 +46,21 @@ public class Game {
 			parent.setText("ROLL!");
 			parent.addActionListener(rollButtonListener);
 			changeState(TURN_BEGIN);
-			//monstersPane.setPanel();
 	    }
 	}
 	public void changeState(int state){
 	switch(state){
 	case STATE_DONE_ROLLING:
 		handleTurn();
-		monstersPane.setPanel();
 		break;
 	case TURN_OVER:
 		endTurn();
-		monstersPane.setPanel();
+		//monstersPane.setPanel(monsterInfo);
+		//window.monster.draw(monsterInfo);
 		break;
 	case TURN_BEGIN:
 		startTurn();
 		window.drawDice();
-		monstersPane.setPanel();
 		break;
 	}	
 }
@@ -112,7 +109,7 @@ public class Game {
 	return someTrue;
 }
 	public void startTurn() {
-		monstersPane.setPanel();
+		
 	dice = new DiceSet(GameConstants.NUMBER_OF_REROLLS,GameConstants.NUMBER_OF_DICE);
 	window.setDice(dice);
 	window.write(board.getCurMon().getName() + "'S TURN");
@@ -125,18 +122,19 @@ public class Game {
 }
 	public void endTurn() {
 	for (Monster m : board.getMonsters()) {
+		m.getName();
 		window.write(m.stateRender());
 		monsterInfo=m.stateRender();
 		System.out.println("game.endTurn for " + monsterInfo);
-		monstersPane.getInformation(monsterInfo);
-		monstersPane.setPanel();
+		monstersPane.draw(monsterInfo);
+		window.monster.draw(monsterInfo);
 		
 	}
 	
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
-	monstersPane.setPanel();
-	System.out.println("in end turn NOT UNDER FOR LOOP");
+	
+	//System.out.println("in end turn NOT UNDER FOR LOOP");
 	//ASDFASDF
 }
 	public String returnMonsterInfo(){
@@ -187,8 +185,8 @@ public class Game {
 			curMon.gainVictory(GameConstants.POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
-		
-		monstersPane.setPanel();
+		//monstersPane.setPanel(monsterInfo);
+		//window.monster.draw(monsterInfo);
 		window.drawArea();
 		
 	}
@@ -220,7 +218,7 @@ public class Game {
 		Monster mon = new Monster(names[i]);
 		monsters.add(mon);
 	}
-	monstersPane.getInformation(monsterInfo);
+	//monstersPane.getInformation(monsterInfo);
 	board = new TokyoArea(monsters);
 	window = win;
 	

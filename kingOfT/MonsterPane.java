@@ -3,6 +3,7 @@ package kingOfT;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.Array;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -17,11 +18,12 @@ public class MonsterPane {
 	public Monster monsD = new Monster("D");
 	public Monster monsE = new Monster("E");
 	public Monster monsF = new Monster("F"); */
+
 	public JPanel panel= new JPanel();
 	
 	int intStart =0;
 	JLabel[] JLabels = new JLabel[6];
-	public String test ="Testing 123"; // "this shouldnt happen under public class monsterpane";
+	public String test = "";
 	int idk=0;
 	
 	
@@ -32,15 +34,18 @@ public class MonsterPane {
 			JLabels[i].setText("");
          }	
 	}
-	public void getInformation(String t){
-		test = t;
+	/*public void getInformation(String t){
+		if(idk==6){
+		idk=0;
+		}
+		test[idk] = t;
 		//System.out.println("MonsterPane.getInformation " + test);
-	}
+	}*/
+
 	public JPanel getPanel() {
 		/** 
 		 * Returns JPanel  to a class
 		 */
-		//System.out.println("MonsterPane.getPanel " + test);
 		GridLayout box = new GridLayout(6,1);
 		panel.setLayout(box);
 		panel.setVisible(true);
@@ -49,24 +54,46 @@ public class MonsterPane {
 			panel.add(JLabels[i]);
 		}
 		
-		setPanel();
+		setPanel(test);
 		
 		return panel;
 	}
-	public void setPanel(){	
+	public void setPanel(String t){	
 		//Window win = new Window();
-			
+			test = t;
 			for(int i = 0; i<6;i++){
 				JLabels[i].setText(test);
 			}
 			
-			
+			draw(test);
 			
 		
-		
+		 
 	}
-	
-}
+	public void draw(String test) {
+		if(intStart==6)
+			intStart=0;
+			if(intStart==0)
+				JLabels[0].setText(test);
+			if(intStart==1)
+				JLabels[1].setText(test);
+			if(intStart==2)
+				JLabels[2].setText(test);
+			if(intStart==3)
+				JLabels[3].setText(test);
+			if(intStart==4)
+				JLabels[4].setText(test);
+			if(intStart==5)
+				JLabels[5].setText(test);
+			if(intStart==6)
+				JLabels[0].setText("THIS SHOULDN'T HAPPEN. RESET intStart");
+			
+			intStart++;
+			
+		}
+	}
+		
+
 	
 	
 	
