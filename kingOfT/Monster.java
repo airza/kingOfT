@@ -9,8 +9,6 @@ public class Monster{
 	private int vp;
 	private int energy;
 	private String name;
-	//private ArrayList<cards> cards;
-	//kokokokokok
 	/**
 	 * 
 	 * see damage is sent by a class usually the Game 
@@ -24,8 +22,6 @@ public class Monster{
 	 * @exception the last method is used to return the VP 
 	 * 
 	 */
-	
-	
 	public void takeDamage (int damage) {
 		health -= damage;
 	}
@@ -35,7 +31,6 @@ public class Monster{
 	public void gainHealth (int heal) {
 		health  = Math.min(10, health+heal);
 	}
-	
 	public void gainVictory(int points){
 		vp += points;
 	}
@@ -44,8 +39,7 @@ public class Monster{
 	}
 	public int getEnergy(){
 		return energy;
-	}
-	
+	}	
 	public String getName() {
 		return name;
 	}

@@ -56,8 +56,6 @@ public class Game {
 		break;
 	case TURN_OVER:
 		endTurn();
-		//monstersPane.setPanel(monsterInfo);
-		//window.monster.draw(monsterInfo);
 		break;
 	case TURN_BEGIN:
 		startTurn();
@@ -127,7 +125,6 @@ public class Game {
 		window.write(m.stateRender());
 		monsterInfo=m.stateRender();
 		monsterName = m.getName();
-		//System.out.println("game.endTurn for " + monsterInfo);
 		monstersPane.draw(monsterInfo, monsterName);
 		window.monster.draw(monsterInfo, monsterName);
 		
@@ -136,8 +133,6 @@ public class Game {
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
 	
-	//System.out.println("in end turn NOT UNDER FOR LOOP");
-	//ASDFASDF
 }
 	public String returnMonsterInfo(){
 	return monsterInfo;
@@ -187,8 +182,6 @@ public class Game {
 			curMon.gainVictory(GameConstants.POINTS_FOR_TOKYO_ENTER);
 			board.AddToTokyo(curMon);
 		}
-		//monstersPane.setPanel(monsterInfo);
-		//window.monster.draw(monsterInfo);
 		window.drawArea();
 		
 	}
@@ -220,7 +213,6 @@ public class Game {
 		Monster mon = new Monster(names[i]);
 		monsters.add(mon);
 	}
-	//monstersPane.getInformation(monsterInfo);
 	board = new TokyoArea(monsters);
 	window = win;
 	

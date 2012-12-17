@@ -5,15 +5,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-/** start of window class
-  */ 
-
+/** start of window class */ 
 /*
  * @author School
  *
  */
 public class Window {
-	
 	public static Boolean askYNQuestion(String text){
 		/**
 		 * Starts JPane
@@ -26,28 +23,20 @@ public class Window {
 	JButton[] diceButtons;
 	DicePane dicePane;
 	MonsterPane monster;
-	
 	JTextArea log;
 	TokyoPane tokyoPane;
 	public String monsterInfo;
 	public void drawDice(){
 		dicePane.drawDice();
-		
 		/** 
 	 * Calls the drawDice method from the dicePane Class 
 	 */
 	}
-	
 	public void drawArea(){
 		tokyoPane.draw();
-		
 		/** 
 		 * calls the draw method from the tokyoPane
 		 */
-	}
-	
-	public void drawMonster(){
-		
 	}
 	public void setDice(DiceSet dice) {
 		dicePane.setDice(dice);	
@@ -67,12 +56,10 @@ public class Window {
 		/** 
 		 * Prints out "text" in the command line 
 		 */
-		//monsterInfo = text;
 		System.out.println(text);
 		
 	}
 	public String monsterInfo(){
-		System.out.println(monsterInfo);
 		return monsterInfo;
 	}
 	public void setTokyoArea(TokyoArea tokyoArea){
@@ -100,7 +87,6 @@ public class Window {
 	frame.setMinimumSize(new Dimension(800,375));
 	frame.repaint();
 	} 
-	
 	public void setMainButtonListener(ActionListener l) {
 		dicePane.getOkButton().addActionListener(l);
 	}
@@ -108,6 +94,4 @@ public class Window {
 	/** 
 	 * "turns on" main button listener  threw the dice pane class dicePane 
 	 */
-
-
 }
