@@ -29,6 +29,7 @@ public class TokyoPane {
 	private JLabel[] tokyoSpaces;
 	private JLabel[] notTokyoSpaces;
 	
+	
 	private int k = 0;
 	
 	final ImageIcon icon[] = {

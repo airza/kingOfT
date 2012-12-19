@@ -20,6 +20,7 @@ public class Game {
 	private MonsterPane monstersPane= new MonsterPane();
 	private String monsterInfo = "";
 	private String monsterName = "";
+	private String monsterTokyo = "";
 	
 	public RollButtonListener rollButtonListener = new RollButtonListener();
 	public OkButtonListener okButtonListener = new OkButtonListener();
@@ -125,13 +126,17 @@ public class Game {
 		window.write(m.stateRender());
 		monsterInfo=m.stateRender();
 		monsterName = m.getName();
-		monstersPane.draw(monsterInfo, monsterName);
-		window.monster.draw(monsterInfo, monsterName);
+		monsterTokyo = board.inTokyo();
+		
+		
+		monstersPane.draw(monsterInfo, monsterName, monsterTokyo);
+		window.monster.draw(monsterInfo, monsterName, monsterTokyo);
 		
 	}
 	
 	window.write(board.stateRender());
 	board.advanceMonsterTurn();
+	monsterTokyo = "";
 	
 }
 	public String returnMonsterInfo(){

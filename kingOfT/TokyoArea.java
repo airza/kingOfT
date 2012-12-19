@@ -18,6 +18,7 @@ private Monster tokyoMon = null;
 private Monster tokyoBayMon = null;
 private ArrayList<Monster> notInTokyo;
 private ArrayList<Monster> monsters;
+public String name = "";
 
 public int monsterCount(){
 	return monsters.size();
@@ -33,7 +34,6 @@ public TokyoArea (ArrayList<Monster> mons) {
 	monsters = new ArrayList<Monster>(mons);
 	Collections.shuffle(monsters);
 }
-
 public ArrayList<Monster> getMonsters() {
 	return monsters;
 }
@@ -96,11 +96,15 @@ public String stateRender() {
 		StringBuilder str = new StringBuilder();
 		for (Monster m : getMonstersInTokyo()){
 			str.append(m.getName()+" is in tokyo!\n");
+			name = m.getName();
 		}
 		for (Monster m: getMonstersNotInTokyo()){
 			System.out.printf(m.getName() + " is not in tokyo!\n");
 		}
 		return str.toString();
+}
+public String inTokyo(){
+	return name;
 }
 public void removeMonsters(ArrayList<Monster> killed) {
 	//throw out monsters that are dead

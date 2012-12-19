@@ -22,7 +22,7 @@ public class DicePane {
 	private JButton[] diceButtons;
 	private JButton okButton;
 	private DiceToggleListener toggle = new DiceToggleListener();
-	public MonsterPane mons = new MonsterPane(); //asdfkadsjf
+	public MonsterPane mons = new MonsterPane(); 
 	
 	class DiceToggleListener implements ActionListener {
 		/** 
