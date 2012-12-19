@@ -84,7 +84,7 @@ public class MonsterPane {
 			if(intStart==6)
 				JLabels[0].setText("THIS SHOULDN'T HAPPEN. RESET intStart"); 
 
-			if(tokyo!="Z"){
+			/*if(tokyo!="Z"){
 				
 				if(name.compareToIgnoreCase("A")==0){
 					JLabels[0].setForeground(Color.blue);
@@ -115,13 +115,10 @@ public class MonsterPane {
 				}
 					
 			}
-			
+			*/
 			intStart++; tokyo="";
 			
 		}
-
-
-	
 	}
 		
 

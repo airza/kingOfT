@@ -127,11 +127,8 @@ public class Game {
 		monsterInfo=m.stateRender();
 		monsterName = m.getName();
 		monsterTokyo = board.inTokyo();
-		
-		
 		monstersPane.draw(monsterInfo, monsterName, monsterTokyo);
 		window.monster.draw(monsterInfo, monsterName, monsterTokyo);
-		
 	}
 	
 	window.write(board.stateRender());
