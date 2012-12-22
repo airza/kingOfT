@@ -87,8 +87,13 @@ public void RemoveFromTokyo(Monster m) {
 	//this has the exact same effect in 4 or 6 player, and no matter what
 	//state t/tb is in.
 	assert(m == tokyoMon || m ==tokyoBayMon);
-		tokyoMon = tokyoBayMon;
-		tokyoBayMon = null;
+	
+		if (m==tokyoMon) {
+			tokyoMon = tokyoBayMon;
+			tokyoBayMon = null;
+		} else {
+			tokyoBayMon = null;
+		}
 	notInTokyo.add(m);
 }
 public String stateRender() {

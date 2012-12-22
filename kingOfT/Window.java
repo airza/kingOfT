@@ -72,7 +72,7 @@ public class Window {
 	 * Sets all the nessesary window stuff including the title bar and layots from the different classes. 
 	 */
 	public Window() {
-	final JFrame frame = new JFrame("King Of Toyko");
+	final JFrame frame = new JFrame("King Of Tokyo");
 	JPanel layout = new JPanel();
 	dicePane = new DicePane();
 	layout.add(dicePane.getPanel());
